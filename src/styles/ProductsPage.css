@@ -16,7 +16,7 @@
 }
 
 /* Grid de Productos en Página de Productos */
-.product-grid {
+.product-grid { 
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
