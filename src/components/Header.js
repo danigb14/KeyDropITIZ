@@ -1,9 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../styles/Header.css';
 import logo from '../assets/logo.png';
 
 export default function Header() {
+  const navigate = useNavigate();
+
+  const handleUserClick = () => {
+    navigate('/login');
+  };
+
   return (
     <header className="header">
       <div className="header-left">
@@ -16,7 +22,11 @@ export default function Header() {
         <button className="header-icon-btn" aria-label="Carrito">
           🛒
         </button>
-        <button className="header-icon-btn user-btn" aria-label="Cuenta">
+        <button 
+          className="header-icon-btn user-btn" 
+          aria-label="Cuenta"
+          onClick={handleUserClick}
+        >
           👤
         </button>
       </div>
