@@ -18,7 +18,7 @@
 /* Grid de Productos en Página de Productos */
 .product-grid { 
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 18px;
   margin: 0 6% 32px;
 }

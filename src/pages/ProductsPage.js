@@ -15,7 +15,7 @@ export default function ProductsPage() {
     <div className="app-container">
       <main className="main-content">
         <section className="featured-section">
-          <h1 className="featured-title">Todos los Productos</h1>
+          <h1 className="featured-title">Todos los VideoJuegos</h1>
           <div className="product-grid">
             {todosLosProductos.map((prod, index) => (
               <ProductCard key={index} name={prod.name} image={prod.image} />

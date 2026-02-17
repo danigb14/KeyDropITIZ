@@ -8,8 +8,11 @@ import './firebase';
 import logo from './assets/logo.png';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
+import Footer from './components/Footer';
 
-// Puedes mover estos a sus propios archivos en src/components/ mas tarde
+// --- COMPONENTES (Header) ---
+// Nota: Eventualmente es mejor mover estos a archivos separados en src/components/
+
 const Header = () => (
   <header className="header">
     <div className="header-left">
@@ -29,15 +32,24 @@ const Header = () => (
   </header>
 );
 
+
+// --- APP PRINCIPAL ---
+
 function App() {
   return (
     <BrowserRouter>
       <div className="app-container">
         <Header />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/productos" element={<ProductsPage />} />
-        </Routes>
+        
+        {/* Contenido Principal */}
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/productos" element={<ProductsPage />} />
+          </Routes>
+        </main>
+
+        <Footer />
       </div>
     </BrowserRouter>
   );
