@@ -1,0 +1,7 @@
+/* Main App CSS - Imports all component styles */
+@import url('./globals.css');
+@import url('./Header.css');
+@import url('./components.css');
+@import url('./Carousel.css');
+@import url('./HomePage.css');
+@import url('./ProductsPage.css');

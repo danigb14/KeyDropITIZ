@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Space+Grotesk:wght@400;600;700&display=swap');
+
+:root {
+  --ink: #AF0086;
+  --line: #784FC4;
+  --paper: #f7f7f2;
+  --lime: #0076E3;
+  --lime-dark: #008FDE;
+  --shadow: rgba(0, 0, 0, 0.12);
+  --accent1: #009FBC;
+  --accent2: #00ABBE;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+/* Contenedor Principal */
+.app-container {
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 20% 10%, rgba(0, 118, 227, 0.15), transparent 45%),
+    radial-gradient(circle at 80% 20%, rgba(8, 143, 222, 0.12), transparent 40%),
+    var(--paper);
+  min-height: 100vh;
+  margin: 0;
+}
+
+.main-content {
+  width: 100%;
+}
