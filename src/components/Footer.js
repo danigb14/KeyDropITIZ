@@ -8,7 +8,7 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-section">
-          <h4>Quiénes Somos</h4>
+          <h4>¿Quiénes Somos?</h4>
           <p>
             Somos una tienda digital dedicada a la venta de códigos de videojuegos,
             ofrecemos entregas rápidas, seguras y confiables. 
@@ -28,14 +28,14 @@ export default function Footer() {
           <h4>Contáctanos</h4>
           <div className="social-links">
             <a
-              href="https://facebook.com"
+              href="https://www.facebook.com/share/1D9epsBCJ3/"
               target="_blank"
               rel="noopener noreferrer"
             >
               Facebook
             </a>
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/keydropvideojuegos?igsh=dzhjaTlrdzRnMzlh"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -48,7 +48,7 @@ export default function Footer() {
             >
               Twitter/X
             </a>
-            <a href="mailto:info@miempresa.com">Email</a>
+            <a href="mailto:keydropvideojuegos@gmail.com">Email</a>
           </div>
         </div>
       </div>
