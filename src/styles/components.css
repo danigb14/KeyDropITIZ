@@ -12,6 +12,8 @@
   transform: translateY(10px) scale(0.98);
   opacity: 0;
   animation: product-in 520ms ease-out forwards;
+  display: flex;
+  flex-direction: column;
 }
 
 .product-card:nth-child(1) { animation-delay: 60ms; }
@@ -38,6 +40,13 @@
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
+.product-image-container {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
 .product-card img {
   width: 100%;
   height: 100%;
@@ -59,6 +68,119 @@
   padding: 4px 8px;
   border: 2px solid var(--line);
   border-radius: 4px;
+  z-index: 2;
+}
+
+/* Favorite Button */
+.favorite-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid var(--line);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms ease;
+  z-index: 3;
+  padding: 0;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 1);
+}
+
+.favorite-btn.active {
+  background: #ff6b6b;
+  border-color: #cc0000;
+}
+
+/* Product Controls */
+.product-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 2px solid var(--line);
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: white;
+  border: 2px solid var(--line);
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.qty-btn {
+  background: var(--line);
+  color: white;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 150ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qty-btn:hover:not(:disabled) {
+  background: #333;
+  transform: scale(1.05);
+}
+
+.qty-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quantity-display {
+  font-weight: bold;
+  font-size: 1.1rem;
+  min-width: 30px;
+  text-align: center;
+  font-family: 'Chakra Petch', sans-serif;
+}
+
+.add-to-cart-btn {
+  background: var(--lime);
+  border: 2px solid var(--line);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-family: 'Chakra Petch', sans-serif;
+  cursor: pointer;
+  transition: all 150ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.add-to-cart-btn:hover {
+  background: #a8d400;
+  transform: translateY(-2px);
+  box-shadow: 3px 3px 0 var(--line);
+}
+
+.add-to-cart-btn:active {
+  transform: translateY(0);
+  box-shadow: 1px 1px 0 var(--line);
 }
 
 @keyframes product-in {
