@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/LoginPage.css';
 import { auth, db } from '../firebase';
@@ -6,6 +6,10 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 
 export default function RegisterPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [email, setEmail] = useState('');
   const [nombre, setNombre] = useState('');
   const [apellido, setApellido] = useState('');

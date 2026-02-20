@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 6%;
+  padding: 0px 6%;
   border-bottom: 3px solid var(--line);
   background: #fff;
   gap: 24px;
@@ -21,7 +21,7 @@
 }
 
 .logo {
-  height: 42px;
+  height: 110px;
   display: block;
   cursor: pointer;
   transition: transform 150ms ease;
@@ -90,12 +90,12 @@
 /* Responsive */
 @media (max-width: 640px) {
   .header {
-    padding: 12px 5%;
+    padding: 0px 5%;
     gap: 12px;
   }
 
   .logo {
-    height: 36px;
+    height: 80px;
   }
 
   .nav-link {

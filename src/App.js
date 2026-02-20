@@ -10,6 +10,9 @@ import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import AboutUsPage from './pages/AboutUsPage';
+import UbicacionPage from './pages/UbicacionPage';
+import ContactoPage from './pages/ContactoPage';
 import Footer from './components/Footer';
 
 // --- COMPONENTES (Header) ---
@@ -58,6 +61,9 @@ function App() {
             <Route path="/productos" element={<ProductsPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/about_us" element={<AboutUsPage />} />
+            <Route path="/ubicacion" element={<UbicacionPage />} />
+            <Route path="/contacto" element={<ContactoPage />} />
           </Routes>
         </main>
 

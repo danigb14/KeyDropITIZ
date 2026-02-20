@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/Footer.css';
 
 export default function Footer() {
@@ -8,53 +9,64 @@ export default function Footer() {
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-section">
-          <h4>¿Quiénes Somos?</h4>
+          <h4>About Us</h4>
           <p>
-            Somos una tienda digital dedicada a la venta de códigos de videojuegos,
-            ofrecemos entregas rápidas, seguras y confiables. 
-            Nuestro compromiso es brindar la mejor experiencia para que disfrutes
-            tus juegos favoritos de forma fácil y accesible.
+            KeyDrop es un proyecto escolar innovador dedicado a la venta de códigos de videojuegos.
           </p>
+          <Link to="/about_us" className="btn-footer-link">
+            Conoce más →
+          </Link>
         </div>
 
         <div className="footer-section">
           <h4>Ubicación</h4>
-          <p>Av. Telecomunicaciones, S/N </p>
-          <p>Colonia Chinampac de Juarez, Ciudad de México</p>
-          <p>CP: 09208</p>
+          <p>Instituto Tecnológico de Iztapalapa</p>
+          <Link to="/ubicacion" className="btn-footer-link">
+            Ver ubicación y mapa →
+          </Link>
         </div>
 
         <div className="footer-section">
-          <h4>Contáctanos</h4>
-          <div className="social-links">
-            <a
-              href="https://www.facebook.com/share/1D9epsBCJ3/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Facebook
-            </a>
-            <a
-              href="https://www.instagram.com/keydropvideojuegos?igsh=dzhjaTlrdzRnMzlh"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Instagram
-            </a>
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Twitter/X
-            </a>
-            <a href="mailto:keydropvideojuegos@gmail.com">Email</a>
-          </div>
+          <h4>Contacto</h4>
+          <p>¿Preguntas? Envíanos un mensaje.</p>
+          <Link to="/contacto" className="btn-footer-link">
+            Ir al formulario de contacto →
+          </Link>
         </div>
       </div>
 
+      <div className="social-links-footer">
+        <a
+          href="https://www.facebook.com/share/1D9epsBCJ3/"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Facebook"
+        >
+          📘
+        </a>
+        <a
+          href="https://www.instagram.com/keydropvideojuegos?igsh=dzhjaTlrdzRnMzlh"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Instagram"
+        >
+          📷
+        </a>
+        <a
+          href="https://twitter.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Twitter/X"
+        >
+          𝕏
+        </a>
+        <a href="mailto:keydropvideojuegos@gmail.com" title="Email">
+          📧
+        </a>
+      </div>
+
       <div className="footer-bottom">
-        <p>&copy; {currentYear} KEYDROP</p>
+        <p>&copy; {currentYear} KEYDROP - Instituto Tecnológico de Iztapalapa</p>
       </div>
     </footer>
   );

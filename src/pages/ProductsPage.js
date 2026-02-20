@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/ProductsPage.css';
 import '../styles/components.css';
 import { todosLosProductos } from '../data/products';
@@ -21,7 +21,7 @@ const ProductCard = ({
         onClick={() => onToggleFavorite(id)}
         aria-label={isFavorite ? 'Eliminar de favoritos' : 'Agregar a favoritos'}
       >
-        ❤️
+        ❤️ 
       </button>
     </div>
     <div className="product-label">{name}</div>
@@ -57,6 +57,10 @@ const ProductCard = ({
 );
 
 export default function ProductsPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const [quantities, setQuantities] = useState({});
   const [favorites, setFavorites] = useState({});
 

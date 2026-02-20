@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { todosLosProductos } from '../data/products';
 
 const Carousel = ({ current, onPrev, onNext, currentIndex, totalBanners }) => (
@@ -46,6 +46,10 @@ const FeaturedGames = ({ games }) => (
 );
 
 export default function HomePage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const bannerContext = require.context(
     '../assets/Banners_FastPass',
     false,
@@ -67,21 +71,21 @@ export default function HomePage() {
     bannerItems.length > 0 ? Math.floor(Math.random() * bannerItems.length) : 0
   );
 
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setCurrentIndex((prev) => {
       const next = (prev + 1) % bannerItems.length;
       setCurrentBanner(bannerItems[next]);
       return next;
     });
-  };
+  }, [bannerItems]);
 
-  const handlePrev = () => {
+  const handlePrev = useCallback(() => {
     setCurrentIndex((prev) => {
       const next = (prev - 1 + bannerItems.length) % bannerItems.length;
       setCurrentBanner(bannerItems[next]);
       return next;
     });
-  };
+  }, [bannerItems]);
 
   React.useEffect(() => {
     if (bannerItems.length === 0) return;
@@ -89,7 +93,7 @@ export default function HomePage() {
       handleNext();
     }, 10000);
     return () => clearInterval(interval);
-  }, [bannerItems, currentIndex]);
+  }, [bannerItems, handleNext]);
 
   const juegosFeatured = [...todosLosProductos]
     .sort(() => Math.random() - 0.5)
