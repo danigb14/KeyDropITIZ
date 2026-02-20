@@ -15,6 +15,9 @@ const firebaseConfig = {
   measurementId: "G-350KB7K4R7"
 };
 
+// Google OAuth Client ID
+export const GOOGLE_CLIENT_ID = "929557853791-aup0isi1vd2a44jcff30hbf7ka8d1k78.apps.googleusercontent.com";
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);

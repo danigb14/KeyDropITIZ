@@ -13,7 +13,11 @@ export default function Footer() {
           <p>
             KeyDrop es un proyecto escolar innovador dedicado a la venta de códigos de videojuegos.
           </p>
-          <Link to="/about_us" className="btn-footer-link">
+          <Link
+            to="/about_us"
+            className="btn-footer-link"
+            onClick={() => localStorage.setItem('lastFooterRoute', '/about_us')}
+          >
             Conoce más →
           </Link>
         </div>
@@ -21,7 +25,11 @@ export default function Footer() {
         <div className="footer-section">
           <h4>Ubicación</h4>
           <p>Instituto Tecnológico de Iztapalapa</p>
-          <Link to="/ubicacion" className="btn-footer-link">
+          <Link
+            to="/ubicacion"
+            className="btn-footer-link"
+            onClick={() => localStorage.setItem('lastFooterRoute', '/ubicacion')}
+          >
             Ver ubicación y mapa →
           </Link>
         </div>
@@ -29,7 +37,11 @@ export default function Footer() {
         <div className="footer-section">
           <h4>Contacto</h4>
           <p>¿Preguntas? Envíanos un mensaje.</p>
-          <Link to="/contacto" className="btn-footer-link">
+          <Link
+            to="/contacto"
+            className="btn-footer-link"
+            onClick={() => localStorage.setItem('lastFooterRoute', '/contacto')}
+          >
             Ir al formulario de contacto →
           </Link>
         </div>

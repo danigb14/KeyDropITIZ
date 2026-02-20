@@ -3,10 +3,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 6%;
-  border-bottom: 3px solid var(--line);
+  padding: 0 6%;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
   background: #fff;
-  gap: 24px;
+  gap: 18px;
+  min-height: 48px; /* compact header height */
+  position: relative;
 }
 
 .header-left {
@@ -24,7 +26,8 @@
   height: 110px;
   display: block;
   cursor: pointer;
-  transition: transform 150ms ease;
+  transition: transform 150ms ease, margin 150ms ease;
+  margin-top: -28px; /* lift logo so header appears smaller */
 }
 
 .logo:hover {
@@ -34,7 +37,9 @@
 .header-right {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 16px;
+  margin-top: -28px; /* center vertically relative to lifted logo */
 }
 
 .nav-link {

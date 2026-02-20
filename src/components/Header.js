@@ -10,12 +10,18 @@ export default function Header() {
     navigate('/login');
   };
 
+  const handleLogoClick = () => {
+    const last = localStorage.getItem('lastFooterRoute');
+    if (last) navigate(last);
+    else navigate('/');
+  };
+
   return (
     <header className="header">
       <div className="header-left">
-        <Link to="/" className="logo-link">
+        <button className="logo-link" onClick={handleLogoClick} aria-label="Logo">
           <img className="logo" src={logo} alt="Logo" />
-        </Link>
+        </button>
       </div>
       <div className="header-right">
         <Link to="/productos" className="nav-link">PRODUCTOS</Link>

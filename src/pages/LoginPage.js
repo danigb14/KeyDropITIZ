@@ -16,13 +16,27 @@ export default function LoginPage() {
   const [contrasena, setContrasena] = useState('');
   const [mostrarContrasena, setMostrarContrasena] = useState(false);
   const [user, setUser] = useState(null);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // TODO: Conectar con autenticación de Firebase
+    setError('');
+    
+    // Verificar si son credenciales de admin
+    const adminEmail = 'keydropadmin@gmail.com';
+    const adminPassword = 'Keydrop123';
+    
+    if (usuario === adminEmail && contrasena === adminPassword) {
+      // Es admin
+      localStorage.setItem('isAdmin', 'true');
+      navigate('/admin');
+      return;
+    }
+    
+    // TODO: Conectar con autenticación de Firebase para usuarios normales
     console.log('Intentando login con:', { usuario, contrasena });
-    alert('Función de login aún en desarrollo');
+    alert('Función de login aún en desarrollo para usuarios normales');
   };
 
   useEffect(() => {
@@ -41,10 +55,10 @@ export default function LoginPage() {
       await setPersistence(auth, browserLocalPersistence);
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
-      // user signed in
+      // Usuario autenticado
       const signedUser = result.user;
       setUser(signedUser);
-      navigate('/');
+      navigate('/cuenta'); // Redirigir a la página de cuenta
     } catch (error) {
       console.error('Error en Google Sign-In', error);
       alert(`No se pudo iniciar sesión con Google: ${error.code} - ${error.message}`);
@@ -75,6 +89,8 @@ export default function LoginPage() {
           </div>
         ) : (
           <form onSubmit={handleLogin}>
+          {error && <div className="admin-error" style={{marginBottom: '20px', color: '#e53935'}}>{error}</div>}
+          
           {/* Campo Usuario */}
           <div className="form-group">
             <label htmlFor="usuario">Usuario o Email:</label>
@@ -133,6 +149,9 @@ export default function LoginPage() {
             </button>
           </div>
         )}
+
+        {/* Botón de Google Sign-In */}
+        <div className="g-signin2" data-onsuccess="onSignIn"></div>
 
         {/* Crear Cuenta */}
         <div className="create-account">

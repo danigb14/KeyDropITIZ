@@ -13,6 +13,8 @@ import RegisterPage from './pages/RegisterPage';
 import AboutUsPage from './pages/AboutUsPage';
 import UbicacionPage from './pages/UbicacionPage';
 import ContactoPage from './pages/ContactoPage';
+import AdminLoginPage from './pages/AdminLoginPage';
+import AdminPage from './pages/AdminPage';
 import Footer from './components/Footer';
 
 // --- COMPONENTES (Header) ---
@@ -64,6 +66,8 @@ function App() {
             <Route path="/about_us" element={<AboutUsPage />} />
             <Route path="/ubicacion" element={<UbicacionPage />} />
             <Route path="/contacto" element={<ContactoPage />} />
+            <Route path="/admin/login" element={<AdminLoginPage />} />
+            <Route path="/admin" element={<AdminPage />} />
           </Routes>
         </main>
 
