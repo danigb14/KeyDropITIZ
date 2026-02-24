@@ -45,10 +45,16 @@ export default function LoginPage() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (u) => {
-      setUser(u);
+      if (u) {
+        // Si el usuario ya está autenticado, redirigir a /cuenta
+        setUser(u);
+        navigate('/cuenta');
+      } else {
+        setUser(null);
+      }
     });
     return () => unsubscribe();
-  }, []);
+  }, [navigate]);
 
   const handleGoogleSignIn = async () => {
     try {

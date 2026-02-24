@@ -16,6 +16,15 @@ export default function Header() {
     else navigate('/');
   };
 
+  const handleConocenosClick = () => {
+    const footer = document.getElementById('site-footer');
+    if (footer) footer.scrollIntoView({ behavior: 'smooth' });
+    else {
+      // Fallback: intentar navegar a la raíz si no existe el footer en esta ruta
+      navigate('/');
+    }
+  };
+
   return (
     <header className="header">
       <div className="header-left">
@@ -25,6 +34,7 @@ export default function Header() {
       </div>
       <div className="header-right">
         <Link to="/productos" className="nav-link">PRODUCTOS</Link>
+        <button className="nav-link header-conocenos" onClick={handleConocenosClick}>CONÓCENOS</button>
         <button className="header-icon-btn" aria-label="Carrito">
           🛒
         </button>
