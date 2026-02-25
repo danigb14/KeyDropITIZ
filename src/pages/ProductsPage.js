@@ -26,8 +26,10 @@ const ProductCard = ({
         ❤️ 
       </button>
     </div>
-    <div className="product-label">{name}</div>
-    <div className="product-price">${price.toFixed(2)}</div>
+    <div className="product-info">
+      <div className="product-label">{name}</div>
+      <div className="product-price">${price.toFixed(2)}</div>
+    </div>
     
     <div className="product-controls">
       <div className="quantity-control">

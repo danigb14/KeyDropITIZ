@@ -54,37 +54,38 @@
   display: block;
 }
 
+.product-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.95);
+  border-top: 2px solid var(--line);
+  border-bottom: 2px solid var(--line);
+}
+
 .product-label {
-  position: absolute;
-  left: 8px;
-  bottom: 12px;
-  transform: rotate(-90deg);
-  transform-origin: left bottom;
   font-family: 'Chakra Petch', sans-serif;
   font-weight: 700;
   color: var(--line);
   letter-spacing: 1px;
-  background: rgba(255, 255, 255, 0.85);
-  padding: 4px 8px;
-  border: 2px solid var(--line);
-  border-radius: 4px;
-  z-index: 2;
+  text-align: center;
+  font-size: 0.95rem;
 }
 
 .product-price {
-  position: absolute;
-  top: 8px;
-  left: 8px;
   font-family: 'Chakra Petch', sans-serif;
   font-weight: 700;
   font-size: 1.1rem;
   color: white;
   background: linear-gradient(135deg, #6a0dad, #b535f6);
-  padding: 6px 12px;
+  padding: 4px 12px;
   border: 2px solid var(--line);
   border-radius: 6px;
-  z-index: 2;
   box-shadow: 2px 2px 0 var(--line);
+  text-align: center;
 }
 
 /* Favorite Button */

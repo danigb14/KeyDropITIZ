@@ -29,8 +29,12 @@ const Carousel = ({ current, onPrev, onNext, currentIndex, totalBanners }) => (
 
 const ProductCard = ({ name, image }) => (
   <div className="product-card">
-    <img src={image} alt={name} />
-    <div className="product-label">{name}</div>
+    <div className="product-image-container">
+      <img src={image} alt={name} />
+    </div>
+    <div className="product-info">
+      <div className="product-label">{name}</div>
+    </div>
   </div>
 );
 

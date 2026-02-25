@@ -34,7 +34,7 @@ export default function Header() {
       </div>
       <div className="header-right">
         <Link to="/productos" className="nav-link">PRODUCTOS</Link>
-        <button className="nav-link header-conocenos" onClick={handleConocenosClick}>CONÓCENOS</button>
+        <button className="nav-link header-conocenos" onClick={handleConocenosClick}>ABOUT US</button>
         <button className="header-icon-btn" aria-label="Carrito">
           🛒
         </button>
