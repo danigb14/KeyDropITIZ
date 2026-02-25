@@ -27,15 +27,28 @@ export const CartProvider = ({ children }) => {
       const existingItem = prevItems.find((item) => item.id === product.id);
       
       if (existingItem) {
-        // Si ya existe, incrementar cantidad
+        // Si ya existe, incrementar cantidad con límite de 20
+        const newQuantity = existingItem.quantity + product.quantity;
+        if (newQuantity > 20) {
+          alert('⚠️ No puedes agregar más de 20 unidades de este producto');
+          return prevItems.map((item) =>
+            item.id === product.id
+              ? { ...item, quantity: 20 }
+              : item
+          );
+        }
         return prevItems.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + product.quantity }
+            ? { ...item, quantity: newQuantity }
             : item
         );
       } else {
-        // Si no existe, agregarlo
-        return [...prevItems, { ...product, quantity: product.quantity }];
+        // Si no existe, agregarlo con límite de 20
+        const quantity = Math.min(product.quantity, 20);
+        if (product.quantity > 20) {
+          alert('⚠️ No puedes agregar más de 20 unidades de este producto');
+        }
+        return [...prevItems, { ...product, quantity }];
       }
     });
   };
@@ -47,6 +60,13 @@ export const CartProvider = ({ children }) => {
   const updateQuantity = (productId, newQuantity) => {
     if (newQuantity <= 0) {
       removeFromCart(productId);
+    } else if (newQuantity > 20) {
+      alert('⚠️ No puedes agregar más de 20 unidades de este producto');
+      setCartItems((prevItems) =>
+        prevItems.map((item) =>
+          item.id === productId ? { ...item, quantity: 20 } : item
+        )
+      );
     } else {
       setCartItems((prevItems) =>
         prevItems.map((item) =>

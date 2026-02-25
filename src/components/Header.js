@@ -38,13 +38,6 @@ export default function Header() {
         <button className="header-icon-btn" aria-label="Carrito">
           🛒
         </button>
-        <button 
-          className="header-icon-btn user-btn" 
-          aria-label="Cuenta"
-          onClick={handleUserClick}
-        >
-          👤
-        </button>
       </div>
     </header>
   );

@@ -6,6 +6,7 @@ import '../src/styles/App.css';
 import './firebase';
 import { auth } from './firebase';
 import { CartProvider, useCart } from './context/CartContext';
+import { FavoritesProvider, useFavorites } from './context/FavoritesContext';
 
 import logo from './assets/logo.png';
 import HomePage from './pages/HomePage';
@@ -19,6 +20,7 @@ import AdminLoginPage from './pages/AdminLoginPage';
 import AdminPage from './pages/AdminPage';
 import AccountPage from './pages/AccountPage';
 import CartPage from './pages/CartPage';
+import FavoritesPage from './pages/FavoritesPage';
 import Footer from './components/Footer';
 
 // --- COMPONENTES (Header) ---
@@ -28,7 +30,9 @@ const Header = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const { getCartCount } = useCart();
+  const { getFavoritesCount } = useFavorites();
   const cartCount = getCartCount();
+  const favoritesCount = getFavoritesCount();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
@@ -70,6 +74,14 @@ const Header = () => {
           📧
         </button>
         <button 
+          className="header-icon-btn favorites-btn" 
+          aria-label="Favoritos"
+          onClick={() => navigate('/favoritos')}
+        >
+          ❤️
+          {favoritesCount > 0 && <span className="cart-badge">{favoritesCount}</span>}
+        </button>
+        <button 
           className="header-icon-btn cart-btn" 
           aria-label="Carrito"
           onClick={() => navigate('/carrito')}
@@ -95,9 +107,10 @@ const Header = () => {
 function App() {
   return (
     <CartProvider>
-      <BrowserRouter>
-        <div className="app-container">
-          <Header />
+      <FavoritesProvider>
+        <BrowserRouter>
+          <div className="app-container">
+            <Header />
         
         {/* Contenido Principal */}
         <main className="main-content">
@@ -113,12 +126,14 @@ function App() {
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/cuenta" element={<AccountPage />} />
             <Route path="/carrito" element={<CartPage />} />
+            <Route path="/favoritos" element={<FavoritesPage />} />
           </Routes>
         </main>
 
         <Footer />
-        </div>
-      </BrowserRouter>
+          </div>
+        </BrowserRouter>
+      </FavoritesProvider>
     </CartProvider>
   );
 }

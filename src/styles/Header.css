@@ -92,7 +92,8 @@
   color: #fff;
 }
 
-.cart-btn {
+.cart-btn,
+.favorites-btn {
   position: relative;
 }
 

@@ -3,6 +3,7 @@ import '../styles/ProductsPage.css';
 import '../styles/components.css';
 import { todosLosProductos } from '../data/products';
 import { useCart } from '../context/CartContext';
+import { useFavorites } from '../context/FavoritesContext';
 
 const ProductCard = ({ 
   id, 
@@ -63,22 +64,28 @@ const ProductCard = ({
 
 export default function ProductsPage() {
   const { addToCart } = useCart();
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   const [quantities, setQuantities] = useState({});
-  const [favorites, setFavorites] = useState({});
 
   // Inicializar cantidades a 1
   const getQuantity = (id) => quantities[id] || 1;
 
   const handleQuantityChange = (id, newQuantity) => {
-    if (newQuantity >= 1) {
+    if (newQuantity >= 1 && newQuantity <= 20) {
       setQuantities(prev => ({
         ...prev,
         [id]: newQuantity
+      }));
+    } else if (newQuantity > 20) {
+      alert('⚠️ No puedes seleccionar más de 20 unidades por producto');
+      setQuantities(prev => ({
+        ...prev,
+        [id]: 20
       }));
     }
   };
@@ -100,10 +107,15 @@ export default function ProductsPage() {
   };
 
   const handleToggleFavorite = (id) => {
-    setFavorites(prev => ({
-      ...prev,
-      [id]: !prev[id]
-    }));
+    const product = todosLosProductos.find(p => p.id === id);
+    if (product) {
+      const isNowFavorite = toggleFavorite(product);
+      if (isNowFavorite) {
+        alert(`❤️ ${product.name} agregado a favoritos`);
+      } else {
+        alert(`💔 ${product.name} eliminado de favoritos`);
+      }
+    }
   };
 
   return (
@@ -120,7 +132,7 @@ export default function ProductsPage() {
                 image={prod.image}
                 price={prod.price}
                 quantity={getQuantity(prod.id)}
-                isFavorite={favorites[prod.id] || false}
+                isFavorite={isFavorite(prod.id)}
                 onQuantityChange={handleQuantityChange}
                 onAddToCart={handleAddToCart}
                 onToggleFavorite={handleToggleFavorite}
