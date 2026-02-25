@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import '../styles/ProductsPage.css';
 import '../styles/components.css';
 import { todosLosProductos } from '../data/products';
+import { useCart } from '../context/CartContext';
 
 const ProductCard = ({ 
   id, 
   name, 
-  image, 
+  image,
+  price,
   quantity, 
   isFavorite, 
   onQuantityChange, 
@@ -25,6 +27,7 @@ const ProductCard = ({
       </button>
     </div>
     <div className="product-label">{name}</div>
+    <div className="product-price">${price.toFixed(2)}</div>
     
     <div className="product-controls">
       <div className="quantity-control">
@@ -47,7 +50,7 @@ const ProductCard = ({
       </div>
       <button 
         className="add-to-cart-btn"
-        onClick={() => onAddToCart(id, name, quantity)}
+        onClick={() => onAddToCart(id, name, image, price, quantity)}
         aria-label={`Agregar ${quantity} ${name} al carrito`}
       >
         🛒 Agregar
@@ -57,6 +60,8 @@ const ProductCard = ({
 );
 
 export default function ProductsPage() {
+  const { addToCart } = useCart();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -76,10 +81,20 @@ export default function ProductsPage() {
     }
   };
 
-  const handleAddToCart = (id, name, quantity) => {
-    // Aquí puedes conectar a un carrito global o almacenamiento
+  const handleAddToCart = (id, name, image, price, quantity) => {
+    addToCart({
+      id,
+      name,
+      image,
+      price,
+      quantity
+    });
     alert(`✓ Se agregaron ${quantity} x ${name} al carrito`);
-    console.log(`Agregado: ${quantity}x ${name}`);
+    // Resetear cantidad a 1 después de agregar
+    setQuantities(prev => ({
+      ...prev,
+      [id]: 1
+    }));
   };
 
   const handleToggleFavorite = (id) => {
@@ -95,14 +110,15 @@ export default function ProductsPage() {
         <section className="featured-section">
           <h1 className="featured-title">Todos los VideoJuegos</h1>
           <div className="product-grid">
-            {todosLosProductos.map((prod, index) => (
+            {todosLosProductos.map((prod) => (
               <ProductCard 
-                key={index}
-                id={index}
+                key={prod.id}
+                id={prod.id}
                 name={prod.name} 
                 image={prod.image}
-                quantity={getQuantity(index)}
-                isFavorite={favorites[index] || false}
+                price={prod.price}
+                quantity={getQuantity(prod.id)}
+                isFavorite={favorites[prod.id] || false}
                 onQuantityChange={handleQuantityChange}
                 onAddToCart={handleAddToCart}
                 onToggleFavorite={handleToggleFavorite}

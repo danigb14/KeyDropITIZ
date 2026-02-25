@@ -71,6 +71,22 @@
   z-index: 2;
 }
 
+.product-price {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: white;
+  background: linear-gradient(135deg, #6a0dad, #b535f6);
+  padding: 6px 12px;
+  border: 2px solid var(--line);
+  border-radius: 6px;
+  z-index: 2;
+  box-shadow: 2px 2px 0 var(--line);
+}
+
 /* Favorite Button */
 .favorite-btn {
   position: absolute;

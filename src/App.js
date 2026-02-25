@@ -5,6 +5,7 @@ import '../src/styles/App.css';
 // initialize firebase configuration
 import './firebase';
 import { auth } from './firebase';
+import { CartProvider, useCart } from './context/CartContext';
 
 import logo from './assets/logo.png';
 import HomePage from './pages/HomePage';
@@ -17,6 +18,7 @@ import ContactoPage from './pages/ContactoPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import AdminPage from './pages/AdminPage';
 import AccountPage from './pages/AccountPage';
+import CartPage from './pages/CartPage';
 import Footer from './components/Footer';
 
 // --- COMPONENTES (Header) ---
@@ -25,6 +27,8 @@ import Footer from './components/Footer';
 const Header = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const { getCartCount } = useCart();
+  const cartCount = getCartCount();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
@@ -65,8 +69,13 @@ const Header = () => {
         >
           📧
         </button>
-        <button className="header-icon-btn" aria-label="Carrito">
+        <button 
+          className="header-icon-btn cart-btn" 
+          aria-label="Carrito"
+          onClick={() => navigate('/carrito')}
+        >
           🛒
+          {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
         </button>
         <button 
           className="header-icon-btn user-btn" 
@@ -85,9 +94,10 @@ const Header = () => {
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="app-container">
-        <Header />
+    <CartProvider>
+      <BrowserRouter>
+        <div className="app-container">
+          <Header />
         
         {/* Contenido Principal */}
         <main className="main-content">
@@ -102,12 +112,14 @@ function App() {
             <Route path="/admin/login" element={<AdminLoginPage />} />
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/cuenta" element={<AccountPage />} />
+            <Route path="/carrito" element={<CartPage />} />
           </Routes>
         </main>
 
         <Footer />
-      </div>
-    </BrowserRouter>
+        </div>
+      </BrowserRouter>
+    </CartProvider>
   );
 }
 
