@@ -40,7 +40,7 @@ const ProductCard = ({ name, image }) => (
 
 const FeaturedGames = ({ games }) => (
   <section className="featured-section">
-    <h2 className="featured-title">Los mejores juegos están aquí, ¡Entra al live!</h2>
+    <h2 className="featured-title">LOS MEJORES JUEGOS ESTAN AQUI</h2>
     <div className="featured-grid">
       {games.map((game, index) => (
         <ProductCard key={index} name={game.name} image={game.image} />

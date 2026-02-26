@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import footerIcons from '../data/footerIcons';
 import '../styles/Footer.css';
 
 export default function Footer() {
@@ -48,33 +49,18 @@ export default function Footer() {
       </div>
 
       <div className="social-links-footer">
-        <a
-          href="https://www.facebook.com/share/1D9epsBCJ3/"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Facebook"
-        >
-          📘
-        </a>
-        <a
-          href="https://www.instagram.com/keydropvideojuegos?igsh=dzhjaTlrdzRnMzlh"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Instagram"
-        >
-          📷
-        </a>
-        <a
-          href="https://twitter.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          title="Twitter/X"
-        >
-          𝕏
-        </a>
-        <a href="mailto:keydropvideojuegos@gmail.com" title="Email">
-          📧
-        </a>
+        {footerIcons.map((icon) => (
+          <a
+            key={icon.id}
+            href={icon.href}
+            target={icon.href.startsWith('http') ? '_blank' : undefined}
+            rel={icon.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            title={icon.label}
+            aria-label={icon.label}
+          >
+            <img className="footer-social-icon" src={icon.icon} alt={icon.label} />
+          </a>
+        ))}
       </div>
 
       <div className="footer-bottom">
