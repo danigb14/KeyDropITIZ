@@ -22,6 +22,7 @@ import AccountPage from './pages/AccountPage';
 import CartPage from './pages/CartPage';
 import FavoritesPage from './pages/FavoritesPage';
 import Footer from './components/Footer';
+import { ToastProvider } from './components/ToastProvider';
 
 // --- COMPONENTES (Header) ---
 // Nota: Eventualmente es mejor mover estos a archivos separados en src/components/
@@ -106,11 +107,12 @@ const Header = () => {
 
 function App() {
   return (
-    <CartProvider>
-      <FavoritesProvider>
-        <BrowserRouter>
-          <div className="app-container">
-            <Header />
+    <ToastProvider>
+      <CartProvider>
+        <FavoritesProvider>
+          <BrowserRouter>
+            <div className="app-container">
+              <Header />
         
         {/* Contenido Principal */}
         <main className="main-content">
@@ -130,11 +132,12 @@ function App() {
           </Routes>
         </main>
 
-        <Footer />
-          </div>
-        </BrowserRouter>
-      </FavoritesProvider>
-    </CartProvider>
+              <Footer />
+            </div>
+          </BrowserRouter>
+        </FavoritesProvider>
+      </CartProvider>
+    </ToastProvider>
   );
 }
 
