@@ -30,3 +30,16 @@ setGlobalOptions({ maxInstances: 10 });
 //   logger.info("Hello logs!", {structuredData: true});
 //   response.send("Hello from Firebase!");
 // });
+
+// endpoint para obtener productos desde Cosmos DB
+const { fetchProductos } = require('./cosmos');
+
+exports.getProductos = onRequest(async (req, res) => {
+  try {
+    const productos = await fetchProductos();
+    res.json(productos);
+  } catch (err) {
+    logger.error('Error consultando Cosmos DB', err);
+    res.status(500).send(err.message);
+  }
+});

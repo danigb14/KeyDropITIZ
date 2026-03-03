@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/ProductsPage.css';
 import '../styles/components.css';
-import { todosLosProductos } from '../data/products';
 import { useCart } from '../context/CartContext';
 import { useFavorites } from '../context/FavoritesContext';
 
@@ -71,6 +70,9 @@ export default function ProductsPage() {
   }, []);
 
   const [quantities, setQuantities] = useState({});
+  const [productos, setProductos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // Inicializar cantidades a 1
   const getQuantity = (id) => quantities[id] || 1;
@@ -107,7 +109,7 @@ export default function ProductsPage() {
   };
 
   const handleToggleFavorite = (id) => {
-    const product = todosLosProductos.find(p => p.id === id);
+    const product = productos.find(p => p.id === id);
     if (product) {
       const isNowFavorite = toggleFavorite(product);
       if (isNowFavorite) {
@@ -118,19 +120,57 @@ export default function ProductsPage() {
     }
   };
 
+  // Fetch productos desde la función backend
+  useEffect(() => {
+    let mounted = true;
+    async function load() {
+      setLoading(true);
+      setError(null);
+      try {
+        // Configura REACT_APP_FUNCTIONS_URL en .env si tu función no está en el mismo host
+        const base = process.env.REACT_APP_FUNCTIONS_URL || '';
+        const res = await fetch(`${base}/getProductos`);
+        const contentType = (res.headers.get('content-type') || '').toLowerCase();
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(`HTTP ${res.status} - ${text.substring(0, 500)}`);
+        }
+        let data;
+        if (contentType.includes('application/json')) {
+          data = await res.json();
+        } else {
+          const text = await res.text();
+          throw new Error('Respuesta no JSON: ' + text.substring(0, 1000));
+        }
+        if (mounted) setProductos(data || []);
+      } catch (err) {
+        if (mounted) setError(err.message || 'Error al cargar productos');
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    }
+    load();
+    return () => { mounted = false; };
+  }, []);
+
   return (
     <div className="app-container">
       <main className="main-content">
         <section className="featured-section">
           <h1 className="featured-title">Todos los VideoJuegos</h1>
           <div className="product-grid">
-            {todosLosProductos.map((prod) => (
+            {loading && <div>Cargando productos…</div>}
+            {error && <div className="error">Error: {error}</div>}
+            {!loading && !error && productos.length === 0 && (
+              <div>No hay productos disponibles.</div>
+            )}
+            {!loading && !error && productos.map((prod) => (
               <ProductCard 
                 key={prod.id}
                 id={prod.id}
-                name={prod.name} 
-                image={prod.image}
-                price={prod.price}
+                name={prod.name || prod.productosid || prod.productos}
+                image={prod.img || prod.image || ''}
+                price={Number(prod.price) || 0}
                 quantity={getQuantity(prod.id)}
                 isFavorite={isFavorite(prod.id)}
                 onQuantityChange={handleQuantityChange}
