@@ -53,6 +53,14 @@
   border: 2px solid transparent;
   border-radius: 4px;
   transition: all 150ms ease;
+  background: transparent;
+  cursor: pointer;
+}
+
+button.nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-link:hover {

@@ -128,20 +128,24 @@
 .qty-btn {
   width: 32px;
   height: 32px;
-  background-color: #6a0dad;
+  background: linear-gradient(135deg, #ff0080 0%, #ff8c00 100%);
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 1.2rem;
+  font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 0, 128, 0.3);
 }
 
 .qty-btn:hover:not(:disabled) {
-  background-color: #4a067d;
+  background: linear-gradient(135deg, #ff0099 0%, #ff9500 100%);
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(255, 0, 128, 0.5);
 }
 
 .qty-btn:disabled {

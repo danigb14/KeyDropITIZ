@@ -67,12 +67,12 @@ const Header = () => {
       <div className="header-right">
         <Link to="/productos" className="nav-link">PRODUCTOS</Link>
         <button 
-          className="header-icon-btn" 
-          aria-label="Contacto"
+          className="nav-link" 
+          aria-label="Acerca de nosotros"
           onClick={scrollToFooter}
           title="Ir al footer"
         >
-          📧
+          ABOUT US
         </button>
         <button 
           className="header-icon-btn favorites-btn" 
