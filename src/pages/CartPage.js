@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import '../styles/CartPage.css';
@@ -6,14 +6,40 @@ import '../styles/CartPage.css';
 export default function CartPage() {
   const navigate = useNavigate();
   const { cartItems, updateQuantity, removeFromCart, clearCart, getCartTotal, getCartCount } = useCart();
+  const [loading, setLoading] = useState(false);
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (cartItems.length === 0) {
       alert('El carrito está vacío');
       return;
     }
-    // TODO: Implementar proceso de checkout
-    alert('Función de pago en desarrollo');
+
+    setLoading(true);
+
+    try {
+      const response = await fetch('http://localhost:3001/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          items: cartItems,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.url) {
+        // Redirigir a la página de Stripe Checkout
+        window.location.href = data.url;
+      } else {
+        throw new Error('No se pudo crear la sesión de pago');
+      }
+    } catch (error) {
+      console.error('Error al procesar el pago:', error);
+      alert('Hubo un error al procesar el pago. Por favor intenta de nuevo.');
+      setLoading(false);
+    }
   };
 
   if (cartItems.length === 0) {
@@ -48,7 +74,7 @@ export default function CartPage() {
             </div>
             <div className="cart-item-details">
               <h3>{item.name}</h3>
-              {item.price && <p className="cart-item-price">${item.price.toFixed(2)}</p>}
+              {item.price && <p className="cart-item-price">${Number(item.price).toFixed(2)}</p>}
             </div>
             <div className="cart-item-controls">
               <div className="quantity-control">
@@ -88,8 +114,12 @@ export default function CartPage() {
           <button className="btn-continue-shopping" onClick={() => navigate('/productos')}>
             Seguir comprando
           </button>
-          <button className="btn-checkout" onClick={handleCheckout}>
-            Proceder al pago
+          <button 
+            className="btn-checkout" 
+            onClick={handleCheckout}
+            disabled={loading}
+          >
+            {loading ? 'Procesando...' : 'Proceder al pago'}
           </button>
         </div>
       </div>

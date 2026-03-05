@@ -10,6 +10,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { fetchProductos } = require('./functions/cosmos');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
 
@@ -50,6 +51,52 @@ app.get('/getProductos', async (req, res) => {
     
     res.status(500).json({ 
       error: "Error al obtener datos de Azure Cosmos DB",
+      details: error.message 
+    });
+  }
+});
+
+// Endpoint para crear sesión de Stripe Checkout
+app.post('/create-checkout-session', async (req, res) => {
+  console.log("💳 Petición recibida en /create-checkout-session");
+  
+  try {
+    const { items } = req.body;
+
+    if (!items || items.length === 0) {
+      return res.status(400).json({ error: 'No hay productos en el carrito' });
+    }
+
+    // Convertir los items del carrito al formato de Stripe
+    const lineItems = items.map(item => ({
+      price_data: {
+        currency: 'mxn',
+        product_data: {
+          name: item.name,
+          images: item.image ? [item.image] : [],
+        },
+        unit_amount: Math.round(Number(item.price) * 100), // Stripe usa centavos
+      },
+      quantity: item.quantity,
+    }));
+
+    // Crear sesión de Stripe Checkout
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: lineItems,
+      mode: 'payment',
+      success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${req.headers.origin}/carrito`,
+    });
+
+    console.log(`✅ Sesión de Stripe creada: ${session.id}`);
+    res.json({ id: session.id, url: session.url });
+    
+  } catch (error) {
+    console.error("❌ ERROR AL CREAR SESIÓN DE STRIPE:");
+    console.error(`Mensaje: ${error.message}`);
+    res.status(500).json({ 
+      error: "Error al crear sesión de pago",
       details: error.message 
     });
   }
