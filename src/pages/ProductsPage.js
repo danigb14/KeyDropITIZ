@@ -68,6 +68,7 @@ export default function ProductsPage() {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [sortType, setSortType] = useState('alphabetical');
 
   // URL del Backend (Asegúrate de que coincida con tu servidor Node)
   const API_URL = process.env.REACT_APP_FUNCTIONS_URL || 'http://localhost:3001';
@@ -88,7 +89,13 @@ export default function ProductsPage() {
       }
 
       const data = await res.json();
-      setProductos(data || []);
+      // Ordenar productos alfabéticamente de A a Z
+      const sortedData = (data || []).sort((a, b) => {
+        const nameA = (a.name || a.titulo || '').toLowerCase();
+        const nameB = (b.name || b.titulo || '').toLowerCase();
+        return nameA.localeCompare(nameB);
+      });
+      setProductos(sortedData);
     } catch (err) {
       console.error("Error al cargar productos:", err);
       setError("No se pudieron cargar los videojuegos. ¿Está encendido el servidor backend?");
@@ -120,11 +127,67 @@ export default function ProductsPage() {
     }
   };
 
+  const applySort = (data, type) => {
+    const sorted = [...data];
+    
+    switch(type) {
+      case 'price-asc':
+        return sorted.sort((a, b) => {
+          const priceA = Number(a.price || a.precio || 0);
+          const priceB = Number(b.price || b.precio || 0);
+          return priceA - priceB;
+        });
+      
+      case 'alphabetical':
+        return sorted.sort((a, b) => {
+          const nameA = (a.name || a.titulo || '').toLowerCase();
+          const nameB = (b.name || b.titulo || '').toLowerCase();
+          return nameA.localeCompare(nameB);
+        });
+      
+      case 'random':
+        return sorted.sort(() => Math.random() - 0.5);
+      
+      default:
+        return sorted;
+    }
+  };
+
+  const handleSortChange = (type) => {
+    setSortType(type);
+    setProductos(applySort(productos, type));
+  };
+
   return (
     <div className="app-container">
       <main className="main-content">
         <section className="featured-section">
           <h1 className="featured-title">Todos los VideoJuegos</h1>
+          
+          {!loading && !error && (
+            <div className="filters-container">
+              <div className="filter-buttons">
+                <button 
+                  className={`filter-btn ${sortType === 'price-asc' ? 'active' : ''}`}
+                  onClick={() => handleSortChange('price-asc')}
+                >
+                  💰 Menor a Mayor
+                </button>
+                <button 
+                  className={`filter-btn ${sortType === 'alphabetical' ? 'active' : ''}`}
+                  onClick={() => handleSortChange('alphabetical')}
+                >
+                  🔤 A a la Z
+                </button>
+                <button 
+                  className={`filter-btn ${sortType === 'random' ? 'active' : ''}`}
+                  onClick={() => handleSortChange('random')}
+                >
+                  🎲 Aleatorio
+                </button>
+              </div>
+            </div>
+          )}
           
           {loading && (
             <div className="loading-state">
