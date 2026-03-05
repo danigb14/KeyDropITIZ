@@ -21,6 +21,7 @@ import AdminPage from './pages/AdminPage';
 import AccountPage from './pages/AccountPage';
 import CartPage from './pages/CartPage';
 import FavoritesPage from './pages/FavoritesPage';
+import SuccessPage from './pages/SuccessPage';
 import Footer from './components/Footer';
 import { ToastProvider } from './components/ToastProvider';
 
@@ -129,6 +130,7 @@ function App() {
             <Route path="/cuenta" element={<AccountPage />} />
             <Route path="/carrito" element={<CartPage />} />
             <Route path="/favoritos" element={<FavoritesPage />} />
+            <Route path="/success" element={<SuccessPage />} />
           </Routes>
         </main>
 
