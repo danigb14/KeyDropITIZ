@@ -150,8 +150,35 @@ export default function LoginPage() {
         {!user && (
           <div className="google-signin">
             <p>O inicia sesión con</p>
-            <button className="btn-google" onClick={handleGoogleSignIn}>
-              Iniciar sesión con Google
+            <button
+              className="btn-google"
+              onClick={handleGoogleSignIn}
+              aria-label="Iniciar sesión con Google"
+              title="Iniciar sesión con Google"
+            >
+              <svg
+                className="google-icon"
+                viewBox="0 0 18 18"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path
+                  fill="#4285F4"
+                  d="M17.64 9.2045c0-.6382-.0573-1.2518-.1636-1.8409H9v3.4818h4.8436c-.2086 1.125-.8427 2.0782-1.7968 2.7155v2.2582h2.9082c1.7027-1.5682 2.6841-3.8795 2.6841-6.6146z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M9 18c2.43 0 4.4673-.8068 5.9564-2.1805l-2.9082-2.2582c-.8068.54-1.8377.8591-3.0482.8591-2.3441 0-4.3282-1.5827-5.0359-3.7091H.9573v2.3327C2.4382 15.9832 5.4818 18 9 18z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M3.9641 10.7127c-.18-.54-.2823-1.1168-.2823-1.7127s.1023-1.1727.2823-1.7127V4.9545H.9573C.3477 6.1691 0 7.5445 0 9s.3477 2.8309.9573 4.0455l3.0068-2.3328z"
+                />
+                <path
+                  fill="#EA4335"
+                  d="M9 3.5795c1.3214 0 2.5077.4541 3.4405 1.3459l2.5814-2.5814C13.4632.8918 11.4273 0 9 0 5.4818 0 2.4382 2.0168.9573 4.9545l3.0068 2.3328c.7077-2.1264 2.6918-3.7091 5.0359-3.7091z"
+                />
+              </svg>
             </button>
           </div>
         )}
