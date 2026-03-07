@@ -82,7 +82,7 @@ export default function ProductsPage() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${API_URL}/getProductos`);
+      const res = await fetch(`${API_URL}/api/getProductos`);
       
       if (!res.ok) {
         throw new Error(`Error HTTP: ${res.status}`);

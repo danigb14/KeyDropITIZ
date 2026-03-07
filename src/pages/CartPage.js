@@ -8,6 +8,9 @@ export default function CartPage() {
   const { cartItems, updateQuantity, removeFromCart, clearCart, getCartTotal, getCartCount } = useCart();
   const [loading, setLoading] = useState(false);
 
+  // URL del Backend (se configura desde variable de entorno)
+  const API_URL = process.env.REACT_APP_FUNCTIONS_URL || 'http://localhost:3001';
+
   const handleCheckout = async () => {
     if (cartItems.length === 0) {
       alert('El carrito está vacío');
@@ -17,7 +20,7 @@ export default function CartPage() {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:3001/create-checkout-session', {
+      const response = await fetch(`${API_URL}/api/create-checkout-session`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
