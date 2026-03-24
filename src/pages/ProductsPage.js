@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import '../styles/ProductsPage.css';
 import '../styles/components.css';
 import { useCart } from '../context/CartContext';
@@ -72,12 +72,7 @@ export default function ProductsPage() {
   // URL del Backend (Asegúrate de que coincida con tu servidor Node)
   const API_URL = process.env.REACT_APP_FUNCTIONS_URL || 'http://localhost:3001';
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -95,7 +90,12 @@ export default function ProductsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [API_URL]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    fetchData();
+  }, [fetchData]);
 
   const getQuantity = (id) => quantities[id] || 1;
 
