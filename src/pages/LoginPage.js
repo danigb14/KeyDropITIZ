@@ -26,8 +26,10 @@ export default function LoginPage() {
     // Verificar si son credenciales de admin
     const adminEmail = 'keydropadmin@gmail.com';
     const adminPassword = 'Keydrop123';
+    const normalizedUsuario = usuario.trim().toLowerCase();
+    const normalizedContrasena = contrasena.trim();
     
-    if (usuario === adminEmail && contrasena === adminPassword) {
+    if (normalizedUsuario === adminEmail && normalizedContrasena === adminPassword) {
       // Es admin
       localStorage.setItem('isAdmin', 'true');
       navigate('/admin');

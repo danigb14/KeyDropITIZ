@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "keydrop-84729"
+  },
+  "targets": {
+    "keydrop-84729": {
+      "hosting": {
+        "app": [
+          "keydrop-84729"
+        ]
+      }
+    }
   }
 }

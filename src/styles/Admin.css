@@ -32,7 +32,68 @@
 .admin-header { display:flex; justify-content:space-between; align-items:center; margin-bottom: 12px; }
 .admin-add { margin-bottom: 18px; }
 .admin-add-form input { padding:8px; margin-right:8px; }
+.admin-stripe {
+  margin-bottom: 18px;
+  background: #f7f9fc;
+  border: 1px solid #dce3ee;
+  border-radius: 10px;
+  padding: 14px;
+}
+.admin-stripe-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.admin-stripe-note {
+  margin: 10px 0 14px;
+  color: #445;
+  font-size: 0.95rem;
+}
+.admin-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+}
+.admin-kpi-card {
+  border: 1px solid #c8d5e6;
+  border-radius: 8px;
+  background: #fff;
+  padding: 10px 12px;
+  color: #16324d;
+}
+.admin-kpi-card h4 {
+  margin: 0 0 8px;
+  font-size: 0.9rem;
+  color: #38506b;
+}
+.admin-kpi-card strong {
+  font-size: 1.15rem;
+}
+.admin-payments-block {
+  margin-top: 16px;
+}
+.admin-payments-block h4 {
+  margin: 0 0 10px;
+}
 .admin-table { width:100%; border-collapse: collapse; }
 .admin-table th, .admin-table td { border:1px solid #eee; padding:8px; }
 .admin-logout { background:#888; color:white; border:none; padding:6px 10px; border-radius:4px; }
 .admin-delete { background:#e53935; }
+
+@media (max-width: 768px) {
+  .admin-page {
+    padding: 12px;
+  }
+
+  .admin-add-form input {
+    margin-right: 0;
+    margin-bottom: 8px;
+    width: 100%;
+  }
+
+  .admin-table {
+    font-size: 0.88rem;
+  }
+}

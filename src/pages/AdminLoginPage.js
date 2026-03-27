@@ -10,10 +10,14 @@ export default function AdminLoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setError('');
+
     const validEmail = 'keydropadmin@gmail.com';
     const validPass = 'Keydrop123';
+    const normalizedEmail = email.trim().toLowerCase();
+    const normalizedPassword = password.trim();
 
-    if (email === validEmail && password === validPass) {
+    if (normalizedEmail === validEmail && normalizedPassword === validPass) {
       localStorage.setItem('isAdmin', 'true');
       navigate('/admin');
     } else {

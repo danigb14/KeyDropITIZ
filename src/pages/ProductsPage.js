@@ -73,14 +73,49 @@ export default function ProductsPage() {
   // URL del Backend (Asegúrate de que coincida con tu servidor Node)
   const API_URL = process.env.REACT_APP_FUNCTIONS_URL || 'http://localhost:3001';
 
+  const buildProductUrls = useCallback(() => {
+    const base = API_URL.replace(/\/$/, '');
+    const urls = [];
+
+    if (base.endsWith('/getProductos')) {
+      urls.push(base);
+    } else {
+      urls.push(`${base}/getProductos`);
+      urls.push(`${base}/api/getProductos`);
+    }
+
+    if (window.location.hostname === 'localhost') {
+      urls.push('http://localhost:3001/getProductos');
+      urls.push('http://localhost:3001/api/getProductos');
+    }
+
+    return [...new Set(urls)];
+  }, [API_URL]);
+
   const fetchData = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${API_URL}/api/getProductos`);
-      
-      if (!res.ok) {
-        throw new Error(`Error HTTP: ${res.status}`);
+      const productUrls = buildProductUrls();
+      let res;
+
+      for (const url of productUrls) {
+        try {
+          const attempt = await fetch(url);
+          if (!attempt.ok) continue;
+
+          const contentType = attempt.headers.get('content-type') || '';
+          if (!contentType.includes('application/json')) continue;
+
+          res = attempt;
+          break;
+        } catch (e) {
+          // Probamos la siguiente URL candidata.
+        }
+      }
+
+      if (!res) {
+        throw new Error('No se encontro un endpoint de productos valido');
       }
 
       const data = await res.json();
@@ -93,11 +128,11 @@ export default function ProductsPage() {
       setProductos(sortedData);
     } catch (err) {
       console.error("Error al cargar productos:", err);
-      setError("No se pudieron cargar los videojuegos. ¿Está encendido el servidor backend?");
+      setError("No se pudieron cargar los videojuegos. Revisa REACT_APP_FUNCTIONS_URL y que el endpoint /getProductos este disponible.");
     } finally {
       setLoading(false);
     }
-  }, [API_URL]);
+  }, [buildProductUrls]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
