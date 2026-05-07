@@ -1,24 +1,110 @@
-# 🚀 INSTRUCCIONES DE DEPLOY - BACKEND VERCEL
+# �️ KeyDropITIZ — Documentación Completa del Proyecto
 
-## 📦 Lo que tienes que subir al nuevo repo
+## 📌 ¿Qué es KeyDropITIZ?
 
-Copia TODA la carpeta `vercel-backend/` a tu nuevo repositorio. Estructura:
+**KeyDropITIZ** es una tienda online de claves digitales (licencias de software, juegos, etc.) construida con:
+
+- **Frontend**: React (Create React App)
+- **Backend**: Node.js + Express, desplegado como serverless en **Vercel**
+- **Base de datos**: **Azure Cosmos DB** (NoSQL) para almacenar productos
+- **Pagos**: **Stripe** (Checkout Sessions)
+- **Hosting del frontend**: **Firebase Hosting**
+
+---
+
+## 🏗️ Arquitectura del Proyecto
 
 ```
-tu-repo-backend/
-├── api/
-│   └── index.js          # ✅ Handler principal (Express adaptado para Vercel)
-├── lib/
-│   └── cosmos.js         # ✅ Módulo de Azure Cosmos DB
-├── package.json          # ✅ Solo dependencias del backend
-├── vercel.json          # ✅ Configuración de rutas de Vercel
-├── .gitignore           # ✅ Ignorar node_modules y .env
-└── README.md            # ✅ Instrucciones de uso
+KeyDropITIZ/
+│
+├── 📁 src/                          # Frontend React
+│   ├── pages/
+│   │   ├── ProductsPage.js          # Lista de productos (consume /api/getProductos)
+│   │   └── CartPage.js              # Carrito + checkout (consume /api/create-checkout-session)
+│   ├── components/                  # Componentes reutilizables de UI
+│   └── App.js                       # Rutas principales
+│
+├── 📁 vercel-backend/               # Backend Express (se despliega en Vercel)
+│   ├── api/
+│   │   └── index.js                 # Handler principal adaptado para Vercel serverless
+│   ├── lib/
+│   │   └── cosmos.js                # Módulo de conexión a Azure Cosmos DB
+│   ├── package.json                 # Dependencias del backend
+│   ├── vercel.json                  # Configuración de rutas para Vercel
+│   └── .gitignore                   # Ignora node_modules y .env
+│
+├── public/                          # Archivos estáticos del frontend
+├── package.json                     # Dependencias del frontend
+├── firebase.json                    # Configuración de Firebase Hosting
+└── .env.local                       # Variables de entorno locales (NO subir a git)
 ```
 
-## 🔧 Pasos para Deploy
+---
 
-### 1️⃣ Subir código al repo
+## ⚙️ Tecnologías y por qué se usan
+
+| Tecnología | Rol | Por qué |
+|------------|-----|---------|
+| React | Frontend SPA | UI dinámica y componentes reutilizables |
+| Express.js | Backend API REST | Simple, flexible, amplio soporte |
+| Vercel | Host del backend | Serverless gratis, fácil deploy desde GitHub |
+| Azure Cosmos DB | Base de datos | NoSQL escalable, integración con Azure |
+| Stripe | Pasarela de pagos | API robusta para checkout seguro |
+| Firebase Hosting | Host del frontend | CDN rápido, fácil integración con React |
+
+---
+
+## 🔌 Endpoints del Backend
+
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| `GET` | `/` | Estado del servidor (health check) |
+| `GET` | `/api/getProductos` | Devuelve todos los productos de Cosmos DB |
+| `POST` | `/api/create-checkout-session` | Crea una sesión de pago en Stripe |
+
+### Ejemplo: Crear sesión de checkout
+```json
+// POST /api/create-checkout-session
+// Body:
+{
+  "items": [
+    { "name": "Windows 11 Pro Key", "price": 1500, "quantity": 1 }
+  ]
+}
+
+// Respuesta:
+{
+  "url": "https://checkout.stripe.com/pay/cs_test_..."
+}
+```
+
+---
+
+## 🔐 Variables de Entorno
+
+### Backend (Vercel Dashboard → Settings → Environment Variables)
+
+| Variable | Descripción | Ejemplo |
+|----------|-------------|---------|
+| `STRIPE_SECRET_KEY` | Clave secreta de Stripe | `sk_test_...` / `sk_live_...` |
+| `COSMOS_ENDPOINT` | URL del Cosmos DB | `https://xxx.documents.azure.com:443/` |
+| `COSMOS_KEY` | Primary Key de Cosmos DB | `abc123...` |
+| `COSMOS_DATABASE` | Nombre de la base de datos | `keydrop-db` |
+| `COSMOS_CONTAINER` | Nombre del contenedor/colección | `productos` |
+
+### Frontend (`.env.local` o Vercel/Firebase en tiempo de build)
+
+| Variable | Descripción | Ejemplo |
+|----------|-------------|---------|
+| `REACT_APP_FUNCTIONS_URL` | URL base del backend | `https://tu-repo-backend.vercel.app` |
+
+---
+
+## 🚀 Deploy Paso a Paso
+
+### PARTE 1 — Deploy del Backend en Vercel
+
+#### 1️⃣ Subir el backend a GitHub
 ```bash
 cd vercel-backend
 git init
@@ -29,103 +115,136 @@ git branch -M main
 git push -u origin main
 ```
 
-### 2️⃣ Conectar con Vercel
-1. Ve a https://vercel.com/new
+#### 2️⃣ Conectar con Vercel
+1. Ve a [https://vercel.com/new](https://vercel.com/new)
 2. Importa tu repositorio del backend
 3. Vercel detectará automáticamente `vercel.json`
-4. **NO CAMBIES NADA** en la configuración de build
-5. Click en "Deploy"
+4. **No cambies nada** en la configuración de build
+5. Click en **Deploy**
 
-### 3️⃣ Configurar Variables de Entorno en Vercel
-En el Dashboard de tu proyecto → Settings → Environment Variables, agrega:
+#### 3️⃣ Agregar Variables de Entorno en Vercel
+Dashboard del proyecto → **Settings** → **Environment Variables**
 
-| Variable | Valor | Dónde conseguirlo |
-|----------|-------|-------------------|
-| `STRIPE_SECRET_KEY` | `sk_test_...` o `sk_live_...` | Dashboard de Stripe |
-| `COSMOS_ENDPOINT` | `https://....documents.azure.com:443/` | Azure Portal → Cosmos DB → Keys |
-| `COSMOS_KEY` | Tu Primary Key | Azure Portal → Cosmos DB → Keys |
-| `COSMOS_DATABASE` | Nombre de tu database | Azure Portal → Cosmos DB → Data Explorer |
-| `COSMOS_CONTAINER` | Nombre de tu container | Azure Portal → Cosmos DB → Data Explorer |
+Agrega las 5 variables de la tabla anterior.
+⚠️ Márcalas para **Production, Preview y Development**.
 
-⚠️ **IMPORTANTE**: Asegúrate de agregar las variables en **Production, Preview y Development**
-
-### 4️⃣ Obtener URL del Backend
-Después del deploy, Vercel te dará una URL como:
+#### 4️⃣ Obtener la URL del backend
+Después del deploy, Vercel te dará:
 ```
 https://tu-repo-backend.vercel.app
 ```
+Guarda esta URL, la necesitas para el frontend.
 
-### 5️⃣ Configurar Frontend para usar el Backend
-En tu proyecto principal de React (KeyDropITIZ):
+---
 
-**Opción A - Local (.env.local)**
+### PARTE 2 — Deploy del Frontend en Firebase
+
+#### 5️⃣ Configurar la URL del backend en el frontend
+
+**Local** (`.env.local`):
 ```env
 REACT_APP_FUNCTIONS_URL=https://tu-repo-backend.vercel.app
 ```
 
-**Opción B - Firebase Hosting**
-Si tu frontend está en Firebase, puedes usar variables de entorno en tiempo de build o configurar en firebase.json
-
-**Opción C - Vercel (si despliegas frontend ahí también)**
-En el proyecto del frontend en Vercel → Settings → Environment Variables:
-```
-REACT_APP_FUNCTIONS_URL=https://tu-repo-backend.vercel.app
+**Firebase Hosting** (en tiempo de build, antes de `firebase deploy`):
+```bash
+REACT_APP_FUNCTIONS_URL=https://tu-repo-backend.vercel.app npm run build
 ```
 
-### 6️⃣ Rebuild el Frontend
-Después de configurar la variable:
+#### 6️⃣ Build y deploy del frontend
 ```bash
 npm run build
+firebase deploy --only hosting
 ```
 
-## ✅ Verificación
+---
 
-### Probar endpoints directamente:
+## ✅ Verificación del Sistema
+
+### Probar el backend con curl:
 ```bash
-# Estado del servidor
+# Health check
 curl https://tu-repo-backend.vercel.app/
 
-# Productos
+# Obtener productos
 curl https://tu-repo-backend.vercel.app/api/getProductos
 
-# Checkout (necesita POST con body)
+# Crear sesión de checkout
 curl -X POST https://tu-repo-backend.vercel.app/api/create-checkout-session \
   -H "Content-Type: application/json" \
-  -d '{"items":[{"name":"Test","price":100,"quantity":1}]}'
+  -d '{"items":[{"name":"Test Key","price":999,"quantity":1}]}'
 ```
 
-## 🔥 Si algo sale mal
+### Verificar el frontend:
+1. Abre la URL de Firebase Hosting
+2. La página de productos debe cargar las claves desde Cosmos DB
+3. Añadir al carrito y hacer checkout debe redirigir a Stripe
 
-### Error 500 en /api/getProductos
-- Verifica que las variables de Cosmos DB estén correctas
-- Revisa los logs en Vercel Dashboard → Deployments → [tu deploy] → Functions
+---
 
-### Error en Stripe
-- Verifica que `STRIPE_SECRET_KEY` esté configurada
-- Si usas test mode, usa `sk_test_...`
+## 🔥 Resolución de Problemas
 
-### CORS errors
-- El backend ya tiene CORS habilitado para todos los orígenes
-- Si quieres restringir, edita `api/index.js` línea 17
+### ❌ Error 500 en `/api/getProductos`
+- Verifica que las 5 variables de Cosmos DB estén correctas en Vercel
+- Revisa los logs: Vercel Dashboard → Deployments → [deploy] → **Functions**
+- Asegúrate de que el contenedor de Cosmos DB existe y tiene datos
 
-## 📝 Diferencias con server.js local
+### ❌ Error en Stripe (400 / 500)
+- Verifica que `STRIPE_SECRET_KEY` esté configurada y sea válida
+- En modo test, usa `sk_test_...`; en producción, `sk_live_...`
+- Los precios deben estar en **centavos** (ej: `1500` = $15.00)
 
-| Local (server.js) | Vercel (api/index.js) |
-|-------------------|----------------------|
-| `app.listen(PORT)` | `module.exports = app` |
-| `/getProductos` | `/api/getProductos` |
-| `/create-checkout-session` | `/api/create-checkout-session` |
-| Puerto 3001 | Serverless (sin puerto) |
+### ❌ CORS errors en el frontend
+- El backend tiene CORS habilitado para todos los orígenes (`*`)
+- Si quieres restringir a tu dominio de Firebase, edita `api/index.js`:
+  ```js
+  app.use(cors({ origin: 'https://tu-app.web.app' }));
+  ```
 
-## ✨ Ya Actualizado en el Frontend
+### ❌ `REACT_APP_FUNCTIONS_URL` es undefined
+- Las variables de React deben empezar con `REACT_APP_`
+- Deben estar definidas **antes** del build (`npm run build`)
+- Reinicia el servidor de desarrollo si las cambias en `.env.local`
 
-✅ `src/pages/CartPage.js` - Ahora usa `REACT_APP_FUNCTIONS_URL`
-✅ `src/pages/ProductsPage.js` - Actualizado a `/api/getProductos`
+---
 
-## 🎯 Próximos pasos
+## 🔄 Flujo Completo de una Compra
 
-1. Deploy el backend en Vercel ✅
-2. Copiar la URL del backend
-3. Configurar `REACT_APP_FUNCTIONS_URL` en tu frontend
-4. Rebuild y redeploy el frontend en Firebase
-5. ¡Listo! 🎉
+```
+Usuario → ProductsPage
+    → GET /api/getProductos → Cosmos DB → Lista de productos
+
+Usuario añade al carrito → CartPage
+    → POST /api/create-checkout-session → Stripe API
+    → Redirige a Stripe Checkout
+
+Usuario paga en Stripe
+    → Stripe redirige a /success o /cancel
+```
+
+---
+
+## 📝 Diferencias: Desarrollo Local vs Vercel
+
+| Aspecto | Local (`server.js`) | Vercel (`api/index.js`) |
+|---------|---------------------|-------------------------|
+| Inicio del servidor | `app.listen(3001)` | `module.exports = app` |
+| URL base | `http://localhost:3001` | `https://tu-repo.vercel.app` |
+| Ruta productos | `/getProductos` | `/api/getProductos` |
+| Ruta checkout | `/create-checkout-session` | `/api/create-checkout-session` |
+| Variables de entorno | `.env` local | Vercel Dashboard |
+
+---
+
+## 🎯 Checklist de Deploy
+
+- [ ] Backend subido a GitHub
+- [ ] Proyecto importado en Vercel
+- [ ] 5 variables de entorno configuradas en Vercel
+- [ ] Backend desplegado y respondiendo en `/`
+- [ ] `REACT_APP_FUNCTIONS_URL` configurada en el frontend
+- [ ] Frontend buildeado con `npm run build`
+- [ ] Frontend desplegado en Firebase con `firebase deploy`
+- [ ] Productos visibles en la tienda
+- [ ] Checkout redirige a Stripe correctamente
+- [ ] ¡Listo para vender! 🎉
