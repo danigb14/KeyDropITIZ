@@ -1,27 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import '../styles/LoginPage.css';
-import { auth } from '../firebase';
+import { auth, db } from '../firebase';
 import {
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithEmailAndPassword,
+  sendEmailVerification,
   signOut,
   onAuthStateChanged,
   setPersistence,
   browserLocalPersistence,
 } from 'firebase/auth';
+import { doc, setDoc } from 'firebase/firestore';
 
 export default function LoginPage() {
   const [usuario, setUsuario] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [mostrarContrasena, setMostrarContrasena] = useState(false);
   const [user, setUser] = useState(null);
+  const [pendingVerificationUser, setPendingVerificationUser] = useState(null);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
+    setPendingVerificationUser(null);
     
     // Verificar si son credenciales de admin
     const adminEmail = 'keydropadmin@gmail.com';
@@ -35,10 +41,29 @@ export default function LoginPage() {
       navigate('/admin');
       return;
     }
-    
-    // TODO: Conectar con autenticación de Firebase para usuarios normales
-    console.log('Intentando login con:', { usuario, contrasena });
-    alert('Función de login aún en desarrollo para usuarios normales');
+
+    try {
+      setLoading(true);
+      await setPersistence(auth, browserLocalPersistence);
+      const result = await signInWithEmailAndPassword(auth, normalizedUsuario, normalizedContrasena);
+      const signedUser = result.user;
+
+      if (!signedUser.emailVerified) {
+        setPendingVerificationUser(signedUser);
+        await signOut(auth);
+        setError('Debes verificar tu correo antes de iniciar sesión. Revisa tu bandeja o reenvía el enlace.');
+        return;
+      }
+
+      await setDoc(doc(db, 'users', signedUser.uid), { emailVerified: true }, { merge: true });
+      setUser(signedUser);
+      navigate('/cuenta');
+    } catch (loginError) {
+      console.error('Error en login con email/password', loginError);
+      setError('No se pudo iniciar sesión. Verifica tu correo y contraseña.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -48,7 +73,11 @@ export default function LoginPage() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (u) => {
       if (u) {
-        // Si el usuario ya está autenticado, redirigir a /cuenta
+        const isPasswordProvider = u.providerData.some((p) => p.providerId === 'password');
+        if (isPasswordProvider && !u.emailVerified) {
+          setUser(null);
+          return;
+        }
         setUser(u);
         navigate('/cuenta');
       } else {
@@ -60,6 +89,7 @@ export default function LoginPage() {
 
   const handleGoogleSignIn = async () => {
     try {
+      setError('');
       await setPersistence(auth, browserLocalPersistence);
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
@@ -70,6 +100,28 @@ export default function LoginPage() {
     } catch (error) {
       console.error('Error en Google Sign-In', error);
       alert(`No se pudo iniciar sesión con Google: ${error.code} - ${error.message}`);
+    }
+  };
+
+  const handleResendVerification = async () => {
+    if (!pendingVerificationUser) {
+      setError('Inicia sesión con tu cuenta para reenviar el correo de verificación.');
+      return;
+    }
+
+    try {
+      setLoading(true);
+      await sendEmailVerification(pendingVerificationUser, {
+        url: window.location.origin + '/login',
+        handleCodeInApp: false,
+      });
+      await signOut(auth);
+      alert('Te enviamos un nuevo enlace de verificación a tu correo.');
+    } catch (resendError) {
+      console.error('Error reenviando verificación', resendError);
+      setError('No se pudo reenviar el enlace de verificación. Intenta más tarde.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -135,9 +187,21 @@ export default function LoginPage() {
           </div>
 
           {/* Botón Login */}
-          <button type="submit" className="btn-login">
-            Iniciar Sesión
+          <button type="submit" className="btn-login" disabled={loading}>
+            {loading ? 'Ingresando...' : 'Iniciar Sesión'}
           </button>
+
+          {pendingVerificationUser && (
+            <button
+              type="button"
+              className="btn-login"
+              style={{ marginTop: '10px', backgroundColor: '#666' }}
+              onClick={handleResendVerification}
+              disabled={loading}
+            >
+              Reenviar correo de verificación
+            </button>
+          )}
           </form>
         )}
 

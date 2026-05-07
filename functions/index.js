@@ -34,6 +34,13 @@ setGlobalOptions({ maxInstances: 10 });
 // endpoint para obtener productos desde Cosmos DB
 const { fetchProductos } = require('./cosmos');
 
+// Funciones de verificación de email
+const {
+  sendVerificationEmail,
+  verifyEmail,
+  resendVerificationEmail,
+} = require('./sendVerificationEmail');
+
 exports.getProductos = onRequest(async (req, res) => {
   try {
     const productos = await fetchProductos();
@@ -43,3 +50,8 @@ exports.getProductos = onRequest(async (req, res) => {
     res.status(500).send(err.message);
   }
 });
+
+// Exportar funciones de verificación de email
+exports.sendVerificationEmail = sendVerificationEmail;
+exports.verifyEmail = verifyEmail;
+exports.resendVerificationEmail = resendVerificationEmail;

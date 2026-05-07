@@ -114,25 +114,25 @@ function App() {
           <BrowserRouter>
             <div className="app-container">
               <Header />
-        
-        {/* Contenido Principal */}
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/productos" element={<ProductsPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/about_us" element={<AboutUsPage />} />
-            <Route path="/ubicacion" element={<UbicacionPage />} />
-            <Route path="/contacto" element={<ContactoPage />} />
-            <Route path="/admin/login" element={<AdminLoginPage />} />
-            <Route path="/admin" element={<AdminPage />} />
-            <Route path="/cuenta" element={<AccountPage />} />
-            <Route path="/carrito" element={<CartPage />} />
-            <Route path="/favoritos" element={<FavoritesPage />} />
-            <Route path="/success" element={<SuccessPage />} />
-          </Routes>
-        </main>
+          
+          {/* Contenido Principal */}
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/productos" element={<ProductsPage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/about_us" element={<AboutUsPage />} />
+              <Route path="/ubicacion" element={<UbicacionPage />} />
+              <Route path="/contacto" element={<ContactoPage />} />
+              <Route path="/admin/login" element={<AdminLoginPage />} />
+              <Route path="/admin" element={<AdminPage />} />
+              <Route path="/cuenta" element={<AccountPage />} />
+              <Route path="/carrito" element={<CartPage />} />
+              <Route path="/favoritos" element={<FavoritesPage />} />
+              <Route path="/success" element={<SuccessPage />} />
+            </Routes>
+          </main>
 
               <Footer />
             </div>
