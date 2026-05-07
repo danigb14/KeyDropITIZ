@@ -10,6 +10,9 @@ export default function FavoritesPage() {
   const { addToCart } = useCart();
   const [quantities, setQuantities] = useState({});
 
+  const getProductPrice = (product) => Number(product.price ?? product.precio ?? 0) || 0;
+  const getProductImage = (product) => product.image || product.img || product.url || 'https://via.placeholder.com/300x200?text=Sin+imagen';
+
   const getQuantity = (id) => quantities[id] || 1;
 
   const handleQuantityChange = (id, newQuantity) => {
@@ -29,11 +32,13 @@ export default function FavoritesPage() {
 
   const handleAddToCart = (product) => {
     const quantity = getQuantity(product.id);
+    const numericPrice = getProductPrice(product);
+    const productImage = getProductImage(product);
     addToCart({
       id: product.id,
       name: product.name,
-      image: product.image,
-      price: product.price,
+      image: productImage,
+      price: numericPrice,
       quantity
     });
     alert(`✓ Se agregaron ${quantity} x ${product.name} al carrito`);
@@ -78,11 +83,17 @@ export default function FavoritesPage() {
               ❤️
             </button>
             <div className="favorite-image-container">
-              <img src={product.image} alt={product.name} />
+              <img
+                src={getProductImage(product)}
+                alt={product.name}
+                onError={(e) => {
+                  e.currentTarget.src = 'https://via.placeholder.com/300x200?text=Sin+imagen';
+                }}
+              />
             </div>
             <div className="favorite-info">
               <h3>{product.name}</h3>
-              <p className="favorite-price">${product.price.toFixed(2)}</p>
+              <p className="favorite-price">${getProductPrice(product).toFixed(2)}</p>
             </div>
             
             <div className="favorite-controls">

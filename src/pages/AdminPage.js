@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Admin.css';
 import { todosLosProductos } from '../data/products';
@@ -13,13 +13,13 @@ export default function AdminPage() {
   const [stripeLoading, setStripeLoading] = useState(false);
   const [stripeError, setStripeError] = useState('');
 
-  const buildStripeDashboardUrl = () => {
+  const buildStripeDashboardUrl = useCallback(() => {
     const base = API_URL.replace(/\/$/, '');
     const normalizedBase = base.endsWith('/api') ? base.slice(0, -4) : base;
     return `${normalizedBase}/api/admin/stripe-dashboard?days=30`;
-  };
+  }, [API_URL]);
 
-  const fetchStripeDashboard = async () => {
+  const fetchStripeDashboard = useCallback(async () => {
     setStripeLoading(true);
     setStripeError('');
 
@@ -50,7 +50,7 @@ export default function AdminPage() {
     } finally {
       setStripeLoading(false);
     }
-  };
+  }, [buildStripeDashboardUrl]);
 
   const formatCurrency = (amount, currency = 'usd') => (
     new Intl.NumberFormat('es-CL', {
@@ -76,7 +76,7 @@ export default function AdminPage() {
     else setProducts(todosLosProductos.map((p, i) => ({ id: i + 1, name: p.name, image: p.image })));
 
     fetchStripeDashboard();
-  }, [navigate]);
+  }, [fetchStripeDashboard, navigate]);
 
   useEffect(() => {
     localStorage.setItem('adminProducts', JSON.stringify(products));
