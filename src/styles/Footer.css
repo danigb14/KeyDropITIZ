@@ -188,3 +188,60 @@
     height: 22px;
   }
 }
+
+/* Dark Mode Styles */
+html.dark-mode .footer {
+  background: linear-gradient(135deg, #2d2d4a 0%, #1a1a2e 100%);
+  border-top-color: #00D4FF;
+}
+
+html.dark-mode .footer-section h4 {
+  color: #00D4FF;
+  border-bottom-color: #00D4FF;
+}
+
+html.dark-mode .footer-section p {
+  color: #B89EFF;
+}
+
+html.dark-mode .footer a {
+  color: #E0B0FF;
+}
+
+html.dark-mode .footer a:hover {
+  color: #00D4FF;
+}
+
+html.dark-mode .btn-footer-link {
+  background-color: #00D4FF;
+  color: #1a1a2e;
+  border-color: #00D4FF;
+}
+
+html.dark-mode .btn-footer-link:hover {
+  background-color: transparent;
+  color: #00D4FF;
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+}
+
+html.dark-mode .social-links-footer {
+  border-top-color: rgba(0, 212, 255, 0.3);
+  border-bottom-color: rgba(0, 212, 255, 0.3);
+}
+
+html.dark-mode .social-links-footer a {
+  background-color: rgba(0, 212, 255, 0.2);
+  color: #00D4FF;
+  border-color: #00D4FF;
+}
+
+html.dark-mode .social-links-footer a:hover {
+  background-color: #00D4FF;
+  color: #1a1a2e;
+  box-shadow: 0 6px 16px rgba(0, 212, 255, 0.4);
+}
+
+html.dark-mode .footer-bottom {
+  color: #B89EFF;
+  border-top-color: rgba(0, 212, 255, 0.3);
+}

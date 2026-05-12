@@ -240,3 +240,77 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Dark Mode Styles */
+html.dark-mode .favorites-container h1 {
+  color: var(--text-primary);
+}
+
+html.dark-mode .favorites-count {
+  color: var(--text-secondary);
+}
+
+html.dark-mode .favorites-empty h1 {
+  color: var(--text-primary);
+}
+
+html.dark-mode .favorites-empty p {
+  color: var(--text-secondary);
+}
+
+html.dark-mode .favorite-card {
+  background: var(--bg-secondary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+html.dark-mode .favorite-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 212, 255, 0.2);
+}
+
+html.dark-mode .remove-favorite-btn {
+  background: rgba(45, 45, 74, 0.9);
+}
+
+html.dark-mode .favorite-image-container {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+}
+
+html.dark-mode .favorite-info h3 {
+  color: var(--text-primary);
+}
+
+html.dark-mode .favorite-price {
+  color: var(--accent1);
+}
+
+html.dark-mode .quantity-control {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+}
+
+html.dark-mode .quantity-display {
+  color: var(--text-primary);
+}
+
+html.dark-mode .add-to-cart-btn {
+  background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
+  color: #000;
+}
+
+html.dark-mode .add-to-cart-btn:hover {
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+}
+
+html.dark-mode .favorites-actions {
+  border-top-color: var(--border-color);
+}
+
+html.dark-mode .btn-continue-shopping {
+  background: linear-gradient(135deg, var(--lime) 0%, var(--lime-dark) 100%);
+  color: #000;
+}
+
+html.dark-mode .btn-continue-shopping:hover {
+  box-shadow: 0 4px 12px rgba(63, 164, 255, 0.3);
+}

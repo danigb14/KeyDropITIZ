@@ -1,7 +1,4 @@
 {
-  "functions": {
-    "source": "functions"
-  },
   "auth": {
     "providers": {
       "googleSignIn": {
@@ -9,6 +6,10 @@
         "supportEmail": "l211080084@iztapalapa.tecnm.mx"
       }
     }
+  },
+  "functions": {
+    "source": "functions",
+    "runtime": "nodejs18"
   },
   "hosting": {
     "target": "app",

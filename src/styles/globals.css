@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Space+Grotesk:wght@400;600;700&display=swap');
 
 :root {
+  /* Modo Claro (Light Mode) */
   --ink: #AF0086;
   --line: #784FC4;
   --paper: #f7f7f2;
@@ -9,6 +10,27 @@
   --shadow: rgba(0, 0, 0, 0.12);
   --accent1: #009FBC;
   --accent2: #00ABBE;
+}
+
+/* Modo Oscuro (Dark Mode) */
+html.dark-mode {
+  --ink: #E0B0FF;
+  --line: #B89EFF;
+  --paper: #1a1a2e;
+  --lime: #3FA4FF;
+  --lime-dark: #5CB8FF;
+  --shadow: rgba(0, 0, 0, 0.3);
+  --accent1: #00D4FF;
+  --accent2: #00E5FF;
+  
+  /* Variables adicionales para dark mode */
+  --bg-primary: #1a1a2e;
+  --bg-secondary: #2d2d4a;
+  --text-primary: #E0B0FF;
+  --text-secondary: #B89EFF;
+  --border-color: #3d3d5a;
+  --input-bg: #2d2d4a;
+  --input-border: #3d3d5a;
 }
 
 * {
@@ -36,6 +58,14 @@ code {
     var(--paper);
   min-height: 100vh;
   margin: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.dark-mode .app-container {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  background-image: radial-gradient(circle at 20% 10%, rgba(61, 61, 90, 0.3), transparent 45%),
+                    radial-gradient(circle at 80% 20%, rgba(45, 45, 74, 0.3), transparent 40%);
 }
 
 .main-content {

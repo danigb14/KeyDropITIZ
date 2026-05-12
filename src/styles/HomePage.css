@@ -51,3 +51,8 @@
     margin: 0 5% 28px;
   }
 }
+
+/* Dark Mode Styles */
+html.dark-mode .featured-title {
+  color: var(--text-primary);
+}

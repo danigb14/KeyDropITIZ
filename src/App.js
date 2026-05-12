@@ -7,6 +7,8 @@ import './firebase';
 import { auth } from './firebase';
 import { CartProvider, useCart } from './context/CartContext';
 import { FavoritesProvider, useFavorites } from './context/FavoritesContext';
+import { DarkModeProvider } from './context/DarkModeContext';
+import { AccessibilityProvider } from './context/AccessibilityContext';
 
 import logo from './assets/logo.png';
 import HomePage from './pages/HomePage';
@@ -23,6 +25,7 @@ import CartPage from './pages/CartPage';
 import FavoritesPage from './pages/FavoritesPage';
 import SuccessPage from './pages/SuccessPage';
 import Footer from './components/Footer';
+import AccessibilityPanel from './components/AccessibilityPanel';
 import { ToastProvider } from './components/ToastProvider';
 
 // --- COMPONENTES (Header) ---
@@ -98,6 +101,7 @@ const Header = () => {
         >
           👤
         </button>
+        <AccessibilityPanel />
       </div>
     </header>
   );
@@ -108,38 +112,42 @@ const Header = () => {
 
 function App() {
   return (
-    <ToastProvider>
-      <CartProvider>
-        <FavoritesProvider>
-          <BrowserRouter>
-            <div className="app-container">
-              <Header />
+    <AccessibilityProvider>
+      <DarkModeProvider>
+        <ToastProvider>
+          <CartProvider>
+            <FavoritesProvider>
+              <BrowserRouter>
+                <div className="app-container">
+                  <Header />
           
-          {/* Contenido Principal */}
-          <main className="main-content">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/productos" element={<ProductsPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/about_us" element={<AboutUsPage />} />
-              <Route path="/ubicacion" element={<UbicacionPage />} />
-              <Route path="/contacto" element={<ContactoPage />} />
-              <Route path="/admin/login" element={<AdminLoginPage />} />
-              <Route path="/admin" element={<AdminPage />} />
-              <Route path="/cuenta" element={<AccountPage />} />
-              <Route path="/carrito" element={<CartPage />} />
-              <Route path="/favoritos" element={<FavoritesPage />} />
-              <Route path="/success" element={<SuccessPage />} />
-            </Routes>
-          </main>
+                  {/* Contenido Principal */}
+                  <main className="main-content">
+                    <Routes>
+                      <Route path="/" element={<HomePage />} />
+                      <Route path="/productos" element={<ProductsPage />} />
+                      <Route path="/login" element={<LoginPage />} />
+                      <Route path="/register" element={<RegisterPage />} />
+                      <Route path="/about_us" element={<AboutUsPage />} />
+                      <Route path="/ubicacion" element={<UbicacionPage />} />
+                      <Route path="/contacto" element={<ContactoPage />} />
+                      <Route path="/admin/login" element={<AdminLoginPage />} />
+                      <Route path="/admin" element={<AdminPage />} />
+                      <Route path="/cuenta" element={<AccountPage />} />
+                      <Route path="/carrito" element={<CartPage />} />
+                      <Route path="/favoritos" element={<FavoritesPage />} />
+                      <Route path="/success" element={<SuccessPage />} />
+                    </Routes>
+                  </main>
 
-              <Footer />
-            </div>
-          </BrowserRouter>
-        </FavoritesProvider>
-      </CartProvider>
-    </ToastProvider>
+                  <Footer />
+                </div>
+              </BrowserRouter>
+            </FavoritesProvider>
+          </CartProvider>
+        </ToastProvider>
+      </DarkModeProvider>
+    </AccessibilityProvider>
   );
 }
 

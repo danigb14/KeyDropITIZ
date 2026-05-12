@@ -457,3 +457,166 @@
     padding: 0.8rem 1rem;
   }
 }
+
+/* Dark Mode Styles */
+html.dark-mode .info-page {
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+}
+
+html.dark-mode .info-container {
+  background: var(--bg-secondary);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+}
+
+html.dark-mode .info-page h1 {
+  background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
+  color: #000;
+}
+
+html.dark-mode .info-content {
+  color: var(--text-primary);
+}
+
+html.dark-mode .about-section h2,
+html.dark-mode .directions-section h2,
+html.dark-mode .contact-info h2,
+html.dark-mode .contact-form-container h2,
+html.dark-mode .faq-section h2 {
+  color: var(--accent1);
+  border-left-color: var(--accent1);
+}
+
+html.dark-mode .about-section p {
+  color: var(--text-secondary);
+}
+
+html.dark-mode .values-list li {
+  background: var(--bg-primary);
+  border-left-color: var(--accent1);
+  color: var(--text-primary);
+}
+
+html.dark-mode .info-item {
+  background: var(--bg-primary);
+  border-left-color: var(--accent1);
+}
+
+html.dark-mode .info-item h3 {
+  color: var(--accent1);
+}
+
+html.dark-mode .info-item p {
+  color: var(--text-secondary);
+}
+
+html.dark-mode .info-item a {
+  color: var(--accent1);
+}
+
+html.dark-mode .info-item a:hover {
+  color: var(--accent2);
+}
+
+html.dark-mode .map-container {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+html.dark-mode .direction-item {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+}
+
+html.dark-mode .direction-item h3 {
+  color: var(--accent1);
+}
+
+html.dark-mode .direction-item p {
+  color: var(--text-secondary);
+}
+
+html.dark-mode .contact-item {
+  background: var(--bg-primary);
+  border-left-color: var(--accent1);
+}
+
+html.dark-mode .contact-item h3 {
+  color: var(--accent1);
+}
+
+html.dark-mode .contact-item p {
+  color: var(--text-secondary);
+}
+
+html.dark-mode .contact-item a {
+  color: var(--accent1);
+}
+
+html.dark-mode .contact-item a:hover {
+  color: var(--accent2);
+}
+
+html.dark-mode .form-description {
+  color: var(--text-secondary);
+}
+
+html.dark-mode .form-group label {
+  color: var(--accent1);
+}
+
+html.dark-mode .form-group input,
+html.dark-mode .form-group textarea {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+html.dark-mode .form-group input:focus,
+html.dark-mode .form-group textarea:focus {
+  border-color: var(--accent1);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.2);
+  background-color: var(--bg-primary);
+}
+
+html.dark-mode .form-status.success {
+  background-color: rgba(76, 175, 80, 0.2);
+  color: #4caf50;
+  border-color: #4caf50;
+}
+
+html.dark-mode .form-status.error {
+  background-color: rgba(244, 67, 54, 0.2);
+  color: #ff6b6b;
+  border-color: #f44336;
+}
+
+html.dark-mode .submit-btn {
+  background: linear-gradient(135deg, var(--accent1) 0%, var(--accent2) 100%);
+  color: #000;
+}
+
+html.dark-mode .submit-btn:hover {
+  box-shadow: 0 6px 16px rgba(0, 212, 255, 0.3);
+}
+
+html.dark-mode .faq-section {
+  background: var(--bg-primary);
+  border-top-color: var(--accent1);
+}
+
+html.dark-mode .faq-item {
+  background: var(--bg-secondary);
+  border-left-color: var(--accent1);
+}
+
+html.dark-mode .faq-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.15);
+}
+
+html.dark-mode .faq-item h3 {
+  color: var(--accent1);
+}
+
+html.dark-mode .faq-item p {
+  color: var(--text-secondary);
+}

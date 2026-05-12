@@ -169,3 +169,39 @@
     font-size: 60px;
   }
 }
+
+/* Dark Mode Styles */
+html.dark-mode .success-container {
+  background-color: var(--bg-primary);
+}
+
+html.dark-mode .popup-overlay {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+html.dark-mode .popup-content {
+  background: var(--bg-secondary);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+html.dark-mode .popup-content h1 {
+  color: var(--accent1);
+}
+
+html.dark-mode .popup-content p {
+  color: var(--text-secondary);
+}
+
+html.dark-mode .session-id {
+  background-color: var(--bg-primary);
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color);
+}
+
+html.dark-mode .session-id span {
+  color: var(--accent1);
+}
+
+html.dark-mode .redirect-text {
+  color: var(--text-secondary) !important;
+}

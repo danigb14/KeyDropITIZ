@@ -64,3 +64,34 @@
 .btn-logout:hover {
   background-color: #4a067d;
 }
+
+/* Dark Mode Styles */
+html.dark-mode .account-container {
+  background-color: var(--bg-secondary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
+}
+
+html.dark-mode .profile-image {
+  border-color: var(--accent1);
+  box-shadow: 0 4px 8px rgba(0, 212, 255, 0.2);
+}
+
+html.dark-mode .profile-avatar {
+  border-color: var(--accent1);
+  background: linear-gradient(135deg, var(--accent1), var(--accent2));
+  box-shadow: 0 4px 8px rgba(0, 212, 255, 0.2);
+}
+
+html.dark-mode .account-details p {
+  color: var(--text-primary);
+}
+
+html.dark-mode .btn-logout {
+  background-color: var(--accent1);
+  color: #000;
+}
+
+html.dark-mode .btn-logout:hover {
+  background-color: var(--accent2);
+}

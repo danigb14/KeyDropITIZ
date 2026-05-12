@@ -229,3 +229,75 @@
     font-size: 16px; /* Evita zoom en mobile */
   }
 }
+
+/* Dark Mode Styles */
+html.dark-mode .login-container {
+  background: linear-gradient(135deg, #3d2d5a 0%, #2d1f3d 100%);
+}
+
+html.dark-mode .login-box {
+  background: var(--bg-primary);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+html.dark-mode .login-title {
+  color: var(--text-primary);
+}
+
+html.dark-mode .form-group label {
+  color: var(--text-primary);
+}
+
+html.dark-mode .form-group input {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+html.dark-mode .form-group input:focus {
+  border-color: var(--accent1);
+  box-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
+  background-color: var(--bg-primary);
+}
+
+html.dark-mode .form-group input::placeholder {
+  color: var(--text-secondary);
+}
+
+html.dark-mode .link-forgot-password {
+  color: var(--accent1);
+}
+
+html.dark-mode .link-forgot-password:hover {
+  color: var(--accent2);
+}
+
+html.dark-mode .google-signin p {
+  color: var(--text-secondary);
+}
+
+html.dark-mode .google-signin .btn-google {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+html.dark-mode .google-signin .btn-google:hover {
+  border-color: var(--accent1);
+  box-shadow: 0 6px 14px rgba(0, 212, 255, 0.2);
+}
+
+html.dark-mode .create-account {
+  border-top-color: var(--border-color);
+}
+
+html.dark-mode .create-account p {
+  color: var(--text-secondary);
+}
+
+html.dark-mode .link-create-account {
+  color: var(--accent1);
+}
+
+html.dark-mode .link-create-account:hover {
+  color: var(--accent2);
+}

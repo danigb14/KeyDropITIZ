@@ -126,3 +126,38 @@
     gap: 6px;
   }
 }
+
+/* Dark Mode Styles */
+html.dark-mode .carousel {
+  background: linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(0, 229, 255, 0.3));
+  border-color: var(--accent1);
+  box-shadow: 6px 6px 0 var(--accent1);
+}
+
+html.dark-mode .carousel-btn {
+  background: rgba(45, 45, 74, 0.95);
+  border-color: var(--accent1);
+  color: var(--accent1);
+}
+
+html.dark-mode .carousel-btn:hover {
+  background: var(--accent1);
+  color: #000;
+  box-shadow: 2px 2px 0 var(--accent1);
+}
+
+html.dark-mode .carousel-dot {
+  background: rgba(0, 212, 255, 0.3);
+  border-color: var(--accent1);
+}
+
+html.dark-mode .carousel-dot.active {
+  background: var(--accent1);
+  border-color: var(--accent2);
+}
+
+html.dark-mode .carousel-slide {
+  background: var(--bg-secondary);
+  border-color: var(--accent1);
+  box-shadow: 4px 4px 0 var(--accent1);
+}

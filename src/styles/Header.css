@@ -148,3 +148,37 @@ button.nav-link {
     font-size: 16px;
   }
 }
+
+/* Dark Mode Styles */
+html.dark-mode .header {
+  background: var(--bg-primary);
+  border-bottom-color: var(--border-color);
+}
+
+html.dark-mode .nav-link {
+  color: var(--text-primary);
+}
+
+html.dark-mode .nav-link:hover {
+  color: var(--lime);
+  border-color: var(--accent1);
+}
+
+html.dark-mode .header-icon-btn {
+  border-color: var(--accent1);
+  color: var(--text-primary);
+}
+
+html.dark-mode .header-icon-btn:hover {
+  background: var(--lime);
+  color: #000;
+}
+
+html.dark-mode .user-btn:hover {
+  background: var(--accent2);
+  color: #000;
+}
+
+html.dark-mode .dark-mode-btn {
+  border-color: var(--accent2);
+}

@@ -97,3 +97,62 @@
     font-size: 0.88rem;
   }
 }
+
+/* Dark Mode Styles */
+html.dark-mode .admin-login-container {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+}
+
+html.dark-mode .admin-login-form label {
+  color: var(--text-primary);
+}
+
+html.dark-mode .admin-login-form input {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+html.dark-mode .admin-stripe {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+}
+
+html.dark-mode .admin-stripe-note {
+  color: var(--text-secondary);
+}
+
+html.dark-mode .admin-kpi-card {
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+html.dark-mode .admin-kpi-card h4 {
+  color: var(--text-secondary);
+}
+
+html.dark-mode .admin-page {
+  color: var(--text-primary);
+}
+
+html.dark-mode .admin-header {
+  color: var(--text-primary);
+}
+
+html.dark-mode .admin-table th {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+html.dark-mode .admin-table td {
+  border-color: var(--border-color);
+  color: var(--text-primary);
+  background: var(--bg-primary);
+}
+
+html.dark-mode .admin-table tr:hover td {
+  background: var(--bg-secondary);
+}
