@@ -71,26 +71,33 @@ export default function ProductsPage() {
   const [sortType, setSortType] = useState('alphabetical');
 
   // URL del Backend (Asegúrate de que coincida con tu servidor Node)
-  const API_URL = process.env.REACT_APP_FUNCTIONS_URL || 'http://localhost:3001';
+  const API_URL = process.env.REACT_APP_FUNCTIONS_URL?.trim() || '';
+  const isLocalDevelopment =
+    process.env.NODE_ENV === 'development' ||
+    window.location.hostname === 'localhost' ||
+    window.location.hostname === '127.0.0.1';
 
   const buildProductUrls = useCallback(() => {
-    const base = API_URL.replace(/\/$/, '');
     const urls = [];
 
-    if (base.endsWith('/getProductos')) {
-      urls.push(base);
-    } else {
-      urls.push(`${base}/getProductos`);
-      urls.push(`${base}/api/getProductos`);
+    if (API_URL) {
+      const base = API_URL.replace(/\/$/, '');
+
+      if (base.endsWith('/getProductos')) {
+        urls.push(base);
+      } else {
+        urls.push(`${base}/getProductos`);
+        urls.push(`${base}/api/getProductos`);
+      }
     }
 
-    if (window.location.hostname === 'localhost') {
+    if (isLocalDevelopment) {
       urls.push('http://localhost:3001/getProductos');
       urls.push('http://localhost:3001/api/getProductos');
     }
 
     return [...new Set(urls)];
-  }, [API_URL]);
+  }, [API_URL, isLocalDevelopment]);
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -98,6 +105,10 @@ export default function ProductsPage() {
     try {
       const productUrls = buildProductUrls();
       let res;
+
+      if (productUrls.length === 0) {
+        throw new Error('Falta configurar REACT_APP_FUNCTIONS_URL');
+      }
 
       for (const url of productUrls) {
         try {
@@ -128,11 +139,15 @@ export default function ProductsPage() {
       setProductos(sortedData);
     } catch (err) {
       console.error("Error al cargar productos:", err);
-      setError("No se pudieron cargar los videojuegos. Revisa REACT_APP_FUNCTIONS_URL y que el endpoint /getProductos este disponible.");
+      setError(
+        isLocalDevelopment
+          ? "No se pudieron cargar los videojuegos. Revisa REACT_APP_FUNCTIONS_URL o que tu backend local esté corriendo en http://localhost:3001."
+          : "No se pudieron cargar los videojuegos. Falta REACT_APP_FUNCTIONS_URL o el backend de producción no responde."
+      );
     } finally {
       setLoading(false);
     }
-  }, [buildProductUrls]);
+  }, [buildProductUrls, isLocalDevelopment]);
 
   useEffect(() => {
     window.scrollTo(0, 0);

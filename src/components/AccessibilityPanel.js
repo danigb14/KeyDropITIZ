@@ -153,12 +153,8 @@ const AccessibilityPanel = () => {
                       onChange={(e) => setVoiceLang(e.target.value)}
                       className="voice-select"
                     >
-                      <option value="es-ES">Español (España)</option>
                       <option value="es-MX">Español (México)</option>
                       <option value="en-US">English (USA)</option>
-                      <option value="en-GB">English (UK)</option>
-                      <option value="fr-FR">Français</option>
-                      <option value="de-DE">Deutsch</option>
                     </select>
                   </div>
 
